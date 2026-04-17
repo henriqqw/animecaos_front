@@ -60,14 +60,24 @@
         "title": "Ready to start?",
         "sub": "A direct .exe file. Requires Mozilla Firefox.",
         "btn": "Download .EXE File",
-        "version": "Version v0.1.2",
+        "version": "Version v0.1.3",
         "note": "Requires Windows 10/11 • ⚠️ MANDATORY: Mozilla Firefox must be installed on your system.",
+        "linux_title": "AnimeCaos Flatpak",
+        "linux_sub": "Build and install via Flatpak straight from source.",
+        "linux_build_label": "Build",
+        "linux_run_label": "Run after build",
+        "linux_note": "Requires Flatpak and build dependencies installed.",
         "source_title": "Install from source",
         "requirements": "System Requirements",
         "req_items": [
             "Windows 10/11 64-bit",
             "Mozilla Firefox",
             "Python 3.10+ (source only)"
+        ],
+        "req_items_linux": [
+            "Ubuntu 20.04+ / Fedora 38+ / Arch",
+            "Flatpak installed",
+            "Python 3.10+ and build dependencies"
         ]
     },
     "about": {

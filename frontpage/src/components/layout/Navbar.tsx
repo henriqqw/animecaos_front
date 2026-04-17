@@ -8,7 +8,7 @@ import { Menu, X, Download, Github } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const GITHUB = "https://github.com/henriqqw/animecaos";
-const DOWNLOAD = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.2/AnimeCaos_v0.1.2.exe";
+const DOWNLOAD = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
 
 interface NavbarProps {
     locale: string;
