@@ -108,6 +108,8 @@ export default function HowToContent() {
                         href={DOWNLOAD_URL}
                         id="howto-download-btn"
                         data-analytics-channel="howto_cta"
+                        data-umami-event="download_click"
+                        data-umami-event-channel="howto"
                         className="btn btn-primary"
                         style={{ fontSize: "1rem", padding: "0.9rem 2rem" }}
                     >

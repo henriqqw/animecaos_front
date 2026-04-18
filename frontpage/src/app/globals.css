@@ -183,6 +183,19 @@ h6 {
   color: #FF2222;
 }
 
+.footer-nav-link {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.22s ease, translate 0.22s ease;
+  display: inline-block;
+}
+
+.footer-nav-link:hover {
+  color: var(--text);
+  translate: 4px 0;
+}
+
 .nav-link {
   position: relative;
   transition: color 0.22s ease, background 0.22s ease !important;

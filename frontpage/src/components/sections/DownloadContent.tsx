@@ -141,6 +141,8 @@ export default function DownloadContent() {
                             href={WINDOWS_URL}
                             id="download-exe-btn"
                             data-analytics-channel="download_page_main"
+                            data-umami-event="download_click"
+                            data-umami-event-channel="download_page"
                             className="btn btn-primary"
                             style={{ fontSize: "1rem", padding: "0.9rem 1.5rem", justifyContent: "center" }}
                         >

@@ -22,11 +22,11 @@ export default function Footer({ locale }: FooterProps) {
     const navT = useTranslations("nav");
 
     const navLinks = [
-        { href: `/${locale}`, label: navT("home") },
-        { href: `/${locale}/about`, label: navT("about") },
-        { href: `/${locale}/download`, label: navT("download") },
-        { href: `/${locale}/how-to-use`, label: navT("howToUse") },
-        { href: `/${locale}/contact`, label: navT("contact") },
+        { href: `/${locale}`, label: navT("home"), event: "nav_home" },
+        { href: `/${locale}/about`, label: navT("about"), event: "nav_about" },
+        { href: `/${locale}/download`, label: navT("download"), event: "nav_download" },
+        { href: `/${locale}/how-to-use`, label: navT("howToUse"), event: "nav_howto" },
+        { href: `/${locale}/contact`, label: navT("contact"), event: "nav_contact" },
     ];
 
     return (
@@ -70,7 +70,9 @@ export default function Footer({ locale }: FooterProps) {
                                 <Link
                                     key={l.href}
                                     href={l.href}
-                                    style={{ fontSize: "0.875rem", color: "var(--text-muted)", textDecoration: "none", transition: "color 0.2s" }}
+                                    className="footer-nav-link"
+                                    data-umami-event={l.event}
+                                    data-umami-event-source="footer"
                                 >
                                     {l.label}
                                 </Link>

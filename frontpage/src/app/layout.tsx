@@ -61,7 +61,9 @@ const websiteJsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt" suppressHydrationWarning>
-      <head />
+      <head>
+        <script defer src="https://umami-rose-chi.vercel.app/script.js" data-website-id="c82f21ea-7dea-4338-bd1e-579eeb0686f9" />
+      </head>
       <body>
         <script
           type="application/ld+json"

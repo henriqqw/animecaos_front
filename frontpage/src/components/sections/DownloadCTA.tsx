@@ -48,6 +48,8 @@ export default function DownloadCTA() {
                             href={DOWNLOAD_URL}
                             id="cta-download-btn"
                             data-analytics-channel="home_cta"
+                            data-umami-event="download_click"
+                            data-umami-event-channel="home_cta"
                             className="btn btn-primary"
                             style={{ fontSize: "1.05rem", padding: "0.9rem 2rem" }}
                         >

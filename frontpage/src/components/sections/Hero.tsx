@@ -466,6 +466,8 @@ export default function Hero({ locale }: HeroProps) {
                             href={DOWNLOAD_URL}
                             id="hero-download-btn"
                             data-analytics-channel="hero_primary"
+                            data-umami-event="download_click"
+                            data-umami-event-channel="hero"
                             className="btn btn-primary"
                             style={{
                                 fontSize: "1rem",

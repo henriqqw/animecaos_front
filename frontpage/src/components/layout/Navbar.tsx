@@ -190,6 +190,8 @@ export default function Navbar({ locale }: NavbarProps) {
                             rel="noopener noreferrer"
                             id="nav-download-btn"
                             data-analytics-channel="navbar_desktop"
+                            data-umami-event="download_click"
+                            data-umami-event-channel="navbar_desktop"
                             className="btn btn-primary"
                             style={{ padding: "0.4rem 0.9rem", fontSize: "0.85rem" }}
                         >
@@ -340,6 +342,8 @@ export default function Navbar({ locale }: NavbarProps) {
                                     rel="noopener noreferrer"
                                     id="nav-mobile-download-btn"
                                     data-analytics-channel="navbar_mobile"
+                                    data-umami-event="download_click"
+                                    data-umami-event-channel="navbar_mobile"
                                     className="btn btn-primary"
                                     style={{ justifyContent: "center" }}
                                 >
