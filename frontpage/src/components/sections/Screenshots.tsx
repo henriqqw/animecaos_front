@@ -115,6 +115,20 @@ export default function Screenshots() {
             width: 1444,
             height: 873,
         },
+        {
+            title: "AnimeCaos - Player & Biblioteca",
+            src: "/screenshot5.webp",
+            alt: "AnimeCaos - player e biblioteca lado a lado",
+            width: 1440,
+            height: 900,
+        },
+        {
+            title: "AnimeCaos - Interface",
+            src: "/screenshot6.webp",
+            alt: "AnimeCaos - interface completa",
+            width: 1440,
+            height: 900,
+        },
     ];
 
     const loopItems = [...items, ...items];
@@ -179,6 +193,7 @@ export default function Screenshots() {
                                             style={{
                                                 position: "relative",
                                                 width: "100%",
+                                                aspectRatio: "16/10",
                                                 overflow: "hidden",
                                             }}
                                         >
@@ -187,7 +202,7 @@ export default function Screenshots() {
                                                 alt={item.alt}
                                                 width={item.width}
                                                 height={item.height}
-                                                style={{ width: "100%", height: "auto", display: "block" }}
+                                                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                                                 sizes="(max-width: 768px) 88vw, 700px"
                                                 priority={index < 2}
                                             />

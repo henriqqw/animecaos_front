@@ -7,7 +7,7 @@ import { Download, Github, ArrowRight, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
 import VariableProximity from "@/components/ui/VariableProximity";
 
-const DOWNLOAD_URL = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.2/AnimeCaos_v0.1.2.exe";
+const DOWNLOAD_URL = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
 const GITHUB_URL = "https://github.com/henriqqw/animecaos";
 
 const fadeUp: Variants = {
@@ -34,7 +34,7 @@ export default function Hero({ locale }: HeroProps) {
     const canvasContainerRef = useRef<HTMLDivElement | null>(null);
     const terminalLines: TerminalLine[] = useMemo(
         () => [
-            { text: "# AnimeCaos v0.1.2" },
+            { text: "# AnimeCaos v0.1.3" },
             { text: "-> Pesquisando: attack on titan" },
             { text: "✓ 3 fontes verificadas em 1.2s", color: "#58a6ff", marginTop: "0.3rem" },
             { text: "✓ Capa AniList carregada", color: "#3fb950" },
@@ -377,31 +377,7 @@ export default function Hero({ locale }: HeroProps) {
                         margin: "0 auto",
                     }}
                 >
-                    {/* Badge */}
-                    <motion.div
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate="visible"
-                        custom={0}
-                    >
-                        <div className="badge">
-                            <motion.span
-                                style={{ display: "inline-flex" }}
-                                animate={{
-                                    scale: [1, 1.16, 1],
-                                    opacity: [0.9, 1, 0.9],
-                                }}
-                                transition={{
-                                    duration: 2.8,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                }}
-                            >
-                                <Star size={11} fill="currentColor" />
-                            </motion.span>
-                            {t("badge")}
-                        </div>
-                    </motion.div>
+
 
                     {/* Headline */}
                     <motion.h1
@@ -495,7 +471,6 @@ export default function Hero({ locale }: HeroProps) {
                                 fontSize: "1rem",
                                 padding: "0.85rem 1.75rem",
                                 border: "1px solid rgba(255,255,255,0.18)",
-                                boxShadow: "0 12px 30px rgba(230,63,63,0.5)",
                             }}
                         >
                             <Download size={18} />

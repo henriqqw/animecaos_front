@@ -9,9 +9,9 @@
   --surface-hover: rgba(255, 255, 255, 0.07);
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.16);
-  --accent: #e63f3f;
-  --accent-dim: rgba(230, 63, 63, 0.15);
-  --accent-glow: rgba(230, 63, 63, 0.3);
+  --accent: #FF2222;
+  --accent-dim: rgba(255, 34, 34, 0.15);
+  --accent-glow: rgba(255, 34, 34, 0.3);
   --text: #f0f2f5;
   --text-muted: rgba(240, 242, 245, 0.45);
   --text-subtle: rgba(240, 242, 245, 0.25);
@@ -70,7 +70,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(230, 63, 63, 0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255, 34, 34, 0.06) 0%, transparent 70%);
 }
 
 /* ─── Glass Utilities ────────────────────────────────────────────── */
@@ -128,11 +128,11 @@ body {
 
 /* ─── Glow Effects ───────────────────────────────────────────────── */
 .glow-accent {
-  box-shadow: 0 0 24px var(--accent-glow), 0 0 48px rgba(230, 63, 63, 0.1);
+  box-shadow: 0 0 24px var(--accent-glow), 0 0 48px rgba(255, 34, 34, 0.1);
 }
 
 .glow-text {
-  text-shadow: 0 0 32px rgba(230, 63, 63, 0.5);
+  text-shadow: 0 0 32px rgba(255, 34, 34, 0.5);
 }
 
 /* ─── Typography ─────────────────────────────────────────────────── */
@@ -180,7 +180,36 @@ h6 {
 }
 
 .hero-variable-line-accent {
-  color: #ff4d4d;
+  color: #FF2222;
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.22s ease, background 0.22s ease !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: calc(100% - 2rem);
+  height: 1.5px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  opacity: 0;
+}
+
+.nav-link:not(.nav-link--active):hover {
+  color: var(--text) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.nav-link:not(.nav-link--active):hover::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
 }
 
 .sr-only {
@@ -241,12 +270,10 @@ h6 {
 .btn-primary {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(230, 63, 63, 0.3);
 }
 
 .btn-primary:hover {
-  background: #d43535;
-  box-shadow: 0 8px 24px rgba(230, 63, 63, 0.45);
+  background: #cc0000;
   transform: translateY(-1px);
 }
 
@@ -279,7 +306,7 @@ h6 {
   letter-spacing: 0.02em;
   background: var(--accent-dim);
   color: var(--accent);
-  border: 1px solid rgba(230, 63, 63, 0.25);
+  border: 1px solid rgba(255, 34, 34, 0.25);
 }
 
 /* ─── Feature Card ────────────────────────────────────────────────── */
@@ -301,11 +328,11 @@ h6 {
   height: 44px;
   border-radius: var(--radius-sm);
   background: var(--accent-dim);
-  border: 1px solid rgba(230, 63, 63, 0.2);
+  border: 1px solid rgba(255, 34, 34, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent);
+  color: #ffffff;
   margin-bottom: 1rem;
   flex-shrink: 0;
 }
@@ -345,7 +372,7 @@ h6 {
 }
 
 .magic-bento-card:hover {
-  border-color: rgba(230, 63, 63, 0.34);
+  border-color: rgba(255, 34, 34, 0.34);
   box-shadow:
     0 16px 34px rgba(0, 0, 0, 0.36),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -369,9 +396,9 @@ h6 {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  border: 1px solid rgba(230, 63, 63, 0.28);
-  background: linear-gradient(160deg, rgba(230, 63, 63, 0.2) 0%, rgba(230, 63, 63, 0.08) 100%);
-  color: var(--accent);
+  border: 1px solid rgba(255, 34, 34, 0.28);
+  background: linear-gradient(160deg, rgba(255, 34, 34, 0.2) 0%, rgba(255, 34, 34, 0.08) 100%);
+  color: #ffffff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -385,8 +412,8 @@ h6 {
 .magic-bento-card__label {
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(230, 63, 63, 0.24);
-  background: rgba(230, 63, 63, 0.12);
+  border: 1px solid rgba(255, 34, 34, 0.24);
+  background: rgba(255, 34, 34, 0.12);
   color: #ff7d7d;
   border-radius: 999px;
   padding: 0.26rem 0.62rem;
@@ -434,8 +461,8 @@ h6 {
   border-radius: inherit;
   background: radial-gradient(
     var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-    rgba(230, 63, 63, calc(var(--glow-intensity) * 0.78)) 0%,
-    rgba(230, 63, 63, calc(var(--glow-intensity) * 0.32)) 36%,
+    rgba(255, 34, 34, calc(var(--glow-intensity) * 0.78)) 0%,
+    rgba(255, 34, 34, calc(var(--glow-intensity) * 0.32)) 36%,
     transparent 66%
   );
   -webkit-mask:
@@ -784,8 +811,8 @@ h6 {
   font-size: 0.82rem;
   font-weight: 500;
   color: rgba(240, 242, 245, 0.74);
-  background: linear-gradient(180deg, rgba(230, 63, 63, 0.13) 0%, rgba(230, 63, 63, 0.08) 100%);
-  border: 1px solid rgba(230, 63, 63, 0.28);
+  background: linear-gradient(180deg, rgba(255, 34, 34, 0.13) 0%, rgba(255, 34, 34, 0.08) 100%);
+  border: 1px solid rgba(255, 34, 34, 0.28);
   border-radius: 999px;
   padding: 0.5rem 0.9rem;
   max-width: min(92%, 760px);

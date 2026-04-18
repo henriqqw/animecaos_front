@@ -7,14 +7,14 @@
     "contact": "Contato"
   },
   "hero": {
-    "badge": "Open Source • v0.1.2",
+    "badge": "Open Source • v0.1.3",
     "headline1": "Anime.",
     "headline2": "Sem anúncio.",
     "headline3": "Sem drama.",
     "sub": "O AnimeCaos busca, extrai e entrega os links direto da fonte — tudo em um player limpo, rápido e com suporte a download.",
     "cta_download": "Baixar para Windows",
     "cta_github": "Ver no GitHub",
-    "cta_version": "v0.1.2 — Última versão"
+    "cta_version": "v0.1.3 — Última versão"
   },
   "features": {
     "title": "Tudo que você precisa. Nada que você não precisa.",
@@ -29,8 +29,8 @@
         "desc": "Reprodução via mpv — leve, sem anúncio, sem popup, sem lentidão."
       },
       {
-        "title": "AniList Nativo",
-        "desc": "Capas originais e sinopses em PT-BR buscadas automaticamente via GraphQL."
+        "title": "AniList Tracker",
+        "desc": "Sincronize seu progresso, marque episódios assistidos e atualize sua lista diretamente pelo app."
       },
       {
         "title": "Auto-Play",

@@ -7,14 +7,14 @@
         "contact": "Contact"
     },
     "hero": {
-        "badge": "Open Source • v0.1.2",
+        "badge": "Open Source • v0.1.3",
         "headline1": "Anime.",
         "headline2": "No ads.",
         "headline3": "No drama.",
         "sub": "AnimeCaos searches, extracts, and delivers links straight from the source — all in a clean player with download support.",
         "cta_download": "Download for Windows",
         "cta_github": "View on GitHub",
-        "cta_version": "v0.1.2 — Latest release"
+        "cta_version": "v0.1.3 — Latest release"
     },
     "features": {
         "title": "Everything you need. Nothing you don't.",
@@ -29,8 +29,8 @@
                 "desc": "Powered by mpv — lightweight, ad-free, no popups, no slowdowns."
             },
             {
-                "title": "Native AniList",
-                "desc": "Original covers and PT-BR synopses fetched automatically via GraphQL."
+                "title": "AniList Tracker",
+                "desc": "Sync your progress, mark watched episodes and update your list directly from the app."
             },
             {
                 "title": "Auto-Play",

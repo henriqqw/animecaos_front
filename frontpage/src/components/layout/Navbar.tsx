@@ -129,6 +129,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                 <Link
                                     key={link.href}
                                     href={link.href}
+                                    className={`nav-link${isActive(link.href) ? " nav-link--active" : ""}`}
                                     style={{
                                         padding: "0.4rem 1rem",
                                         borderRadius: "100px",
@@ -137,7 +138,6 @@ export default function Navbar({ locale }: NavbarProps) {
                                         color: isActive(link.href) ? "var(--text)" : "var(--text-muted)",
                                         textDecoration: "none",
                                         background: isActive(link.href) ? "rgba(255,255,255,0.1)" : "transparent",
-                                        transition: "all 0.2s ease",
                                         whiteSpace: "nowrap",
                                     }}
                                 >
@@ -344,7 +344,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                     style={{ justifyContent: "center" }}
                                 >
                                     <Download size={16} />
-                                    Download v0.1.2
+                                    Download v0.1.3
                                 </a>
                             </div>
                         </motion.div>
