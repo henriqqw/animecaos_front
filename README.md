@@ -1,6 +1,6 @@
 # AnimeCaos — Frontend
 
-Landing page e frontpage do [AnimeCaos](https://animecaos.com), construída com Next.js.
+Landing page e frontpage do [AnimeCaos](https://animecaos.xyz), construída com Next.js.
 
 ## Estrutura
 
