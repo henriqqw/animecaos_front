@@ -4,8 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Download, Github, Terminal, Monitor, Package, Check, Copy } from "lucide-react";
 import { useTranslations } from "next-intl";
-
-const WINDOWS_URL = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
+import { useRelease } from "@/lib/release/context";
 
 const LINUX_BUILD = `git clone https://github.com/henriqqw/AnimeCaos.git
 cd AnimeCaos
@@ -79,6 +78,7 @@ function LinuxGlyph({ size = 14 }: { size?: number }) {
 
 export default function DownloadContent() {
     const t = useTranslations("download");
+    const release = useRelease();
     const reqItems = t.raw("req_items") as string[];
     const reqItemsLinux = t.raw("req_items_linux") as string[];
     const [copiedSource, setCopiedSource] = useState(false);
@@ -107,7 +107,7 @@ export default function DownloadContent() {
                 >
                     <div className="badge" style={{ marginBottom: "1.25rem" }}>
                         <Download size={11} />
-                        {t("version")}
+                        {t("version")} {release.tag}
                     </div>
                     <h1 className="heading-lg">{t("title")}</h1>
                 </motion.div>
@@ -138,7 +138,7 @@ export default function DownloadContent() {
                         </div>
 
                         <a
-                            href={WINDOWS_URL}
+                            href={release.windows_url ?? ""}
                             id="download-exe-btn"
                             data-analytics-channel="download_page_main"
                             data-umami-event="download_click"
@@ -168,7 +168,7 @@ export default function DownloadContent() {
                         {/* Changelog */}
                         <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem" }}>
                             <p style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-subtle)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>
-                                v0.1.3 changelog
+                                {release.tag} changelog
                             </p>
                             <ul style={{ display: "flex", flexDirection: "column", gap: "0.5rem", listStyle: "none" }}>
                                 {CHANGELOG.map((item, i) => (

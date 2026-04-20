@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 const getSitelinksJsonLd = (locale: string) => {
-  const baseUrl = `https://animecaos.vercel.app/${locale}`;
+  const baseUrl = `https://animecaos.xyz/${locale}`;
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",

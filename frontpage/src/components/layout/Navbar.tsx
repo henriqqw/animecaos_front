@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, Github } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useRelease } from "@/lib/release/context";
 
 const GITHUB = "https://github.com/henriqqw/animecaos";
-const DOWNLOAD = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
 
 interface NavbarProps {
     locale: string;
@@ -16,6 +16,7 @@ interface NavbarProps {
 
 export default function Navbar({ locale }: NavbarProps) {
     const t = useTranslations("nav");
+    const release = useRelease();
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -185,7 +186,7 @@ export default function Navbar({ locale }: NavbarProps) {
                         </a>
 
                         <a
-                            href={DOWNLOAD}
+                            href={release.windows_url ?? ""}
                             target="_blank"
                             rel="noopener noreferrer"
                             id="nav-download-btn"
@@ -337,7 +338,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                     {otherLocale === "pt" ? "🇧🇷 PT-BR" : "🇺🇸 EN"}
                                 </Link>
                                 <a
-                                    href={DOWNLOAD}
+                                    href={release.windows_url ?? ""}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     id="nav-mobile-download-btn"
@@ -348,7 +349,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                     style={{ justifyContent: "center" }}
                                 >
                                     <Download size={16} />
-                                    Download v0.1.3
+                                    Download {release.tag}
                                 </a>
                             </div>
                         </motion.div>

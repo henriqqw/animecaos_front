@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export type AppLocale = "pt" | "en";
 
-export const SITE_URL = "https://animecaos.vercel.app";
+export const SITE_URL = "https://animecaos.xyz";
 export const SITE_NAME = "AnimeCaos";
 export const SITE_X_URL = "https://x.com/getanimecaos";
 export const SITE_X_HANDLE = "@getanimecaos";

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { EN_HOME_DESCRIPTION, PT_HOME_DESCRIPTION } from "@/lib/seo";
+import { ReleaseProvider } from "@/lib/release/context";
 import "../globals.css";
 
 const locales = ["pt", "en"] as const;
@@ -12,10 +13,10 @@ function buildOrganizationJsonLd(locale: "pt" | "en") {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://animecaos.vercel.app/#organization",
+        "@id": "https://animecaos.xyz/#organization",
         name: "AnimeCaos",
-        url: "https://animecaos.vercel.app",
-        logo: "https://animecaos.vercel.app/icon.png",
+        url: "https://animecaos.xyz",
+        logo: "https://animecaos.xyz/icon.png",
         sameAs: [
           "https://github.com/henriqqw/animecaos",
           "https://x.com/getanimecaos",
@@ -24,11 +25,11 @@ function buildOrganizationJsonLd(locale: "pt" | "en") {
       },
       {
         "@type": "WebSite",
-        "@id": "https://animecaos.vercel.app/#website",
-        url: "https://animecaos.vercel.app",
+        "@id": "https://animecaos.xyz/#website",
+        url: "https://animecaos.xyz",
         name: "AnimeCaos",
         description: locale === "pt" ? PT_HOME_DESCRIPTION : EN_HOME_DESCRIPTION,
-        publisher: { "@id": "https://animecaos.vercel.app/#organization" },
+        publisher: { "@id": "https://animecaos.xyz/#organization" },
         inLanguage: locale === "pt" ? ["pt-BR"] : ["en-US"],
       },
     ],
@@ -54,12 +55,14 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={appLocale} messages={messages}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
-      <div className="grid-bg" aria-hidden="true" />
-      {children}
+      <ReleaseProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <div className="grid-bg" aria-hidden="true" />
+        {children}
+      </ReleaseProvider>
     </NextIntlClientProvider>
   );
 }

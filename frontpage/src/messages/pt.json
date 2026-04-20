@@ -7,14 +7,14 @@
     "contact": "Contato"
   },
   "hero": {
-    "badge": "Open Source • v0.1.3",
+    "badge": "Open Source",
     "headline1": "Anime.",
     "headline2": "Sem anúncio.",
     "headline3": "Sem drama.",
     "sub": "O AnimeCaos busca, extrai e entrega os links direto da fonte — tudo em um player limpo, rápido e com suporte a download.",
     "cta_download": "Baixar para Windows",
     "cta_github": "Ver no GitHub",
-    "cta_version": "v0.1.3 — Última versão"
+    "cta_version": "Última versão"
   },
   "features": {
     "title": "Tudo que você precisa. Nada que você não precisa.",
@@ -52,15 +52,16 @@
     "zero_ads": "Zero Anúncios",
     "zero_ads_val": "0",
     "size": "Executável",
-    "size_val": "~120MB",
+    "size_val": "~90MB",
     "open_source": "Open Source",
-    "open_source_val": "100%"
+    "open_source_val": "100%",
+    "downloads": "Downloads"
   },
   "download": {
     "title": "Pronto para começar?",
     "sub": "Um arquivo .exe direto. Requer Mozilla Firefox.",
     "btn": "Baixar Arquivo .EXE",
-    "version": "Versão v0.1.3",
+    "version": "Versão",
     "note": "Requer Windows 10/11 • ⚠️ OBRIGATÓRIO: Você precisa ter o navegador Mozilla Firefox instalado.",
     "linux_title": "AnimeCaos Flatpak",
     "linux_sub": "Build e instale via Flatpak direto do source.",

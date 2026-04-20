@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import type { DownloadsResponse } from "@/app/api/github-downloads/route";
 
 type CountParts = {
     prefix: string;
@@ -51,6 +52,14 @@ function CountUp({ end, prefix = "", suffix = "" }: { end: number; prefix?: stri
 
 export default function Stats() {
     const t = useTranslations("stats");
+    const [downloads, setDownloads] = useState<number | null>(null);
+
+    useEffect(() => {
+        fetch("/api/github-downloads")
+            .then((r) => r.json())
+            .then((d: DownloadsResponse) => setDownloads(d.total))
+            .catch(() => null);
+    }, []);
 
     const items: Array<{ label: string; value: string }> = [
         { label: t("sources"), value: t("sources_val") },
@@ -106,6 +115,35 @@ export default function Stats() {
                             </p>
                         </motion.div>
                     ))}
+
+                    {/* Downloads stat — live from GitHub releases */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: items.length * 0.1, duration: 0.5 }}
+                        style={{ textAlign: "center" }}
+                    >
+                        <div
+                            style={{
+                                fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                                fontWeight: 900,
+                                letterSpacing: "-0.04em",
+                                color: "var(--text)",
+                                lineHeight: 1,
+                                marginBottom: "0.4rem",
+                            }}
+                        >
+                            {downloads === null ? (
+                                <span style={{ opacity: 0.3 }}>—</span>
+                            ) : (
+                                <CountUp end={downloads} suffix="+" />
+                            )}
+                        </div>
+                        <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                            {t("downloads")}
+                        </p>
+                    </motion.div>
                 </div>
                 <div className="divider" style={{ marginTop: "3rem" }} />
             </div>

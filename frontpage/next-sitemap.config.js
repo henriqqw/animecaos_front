@@ -1,11 +1,11 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: "https://animecaos.vercel.app",
+    siteUrl: "https://animecaos.xyz",
     generateRobotsTxt: true,
     generateIndexSitemap: false,
     alternateRefs: [
-        { href: "https://animecaos.vercel.app/pt", hreflang: "pt-BR" },
-        { href: "https://animecaos.vercel.app/en", hreflang: "en-US" },
+        { href: "https://animecaos.xyz/pt", hreflang: "pt-BR" },
+        { href: "https://animecaos.xyz/en", hreflang: "en-US" },
     ],
     additionalPaths: async () => {
         const locales = ["pt", "en"];
@@ -21,6 +21,6 @@ module.exports = {
     },
     robotsTxtOptions: {
         policies: [{ userAgent: "*", allow: "/" }],
-        additionalSitemaps: ["https://animecaos.vercel.app/sitemap.xml"],
+        additionalSitemaps: ["https://animecaos.xyz/sitemap.xml"],
     },
 };

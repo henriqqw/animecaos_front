@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
-
-const DOWNLOAD_URL = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
+import { useRelease } from "@/lib/release/context";
 
 export default function HowToContent() {
     const t = useTranslations("howto");
+    const release = useRelease();
     const steps = t.raw("steps") as Array<{ num: string; title: string; desc: string }>;
 
     return (
@@ -105,7 +105,7 @@ export default function HowToContent() {
                     style={{ marginTop: "3rem", textAlign: "center" }}
                 >
                     <a
-                        href={DOWNLOAD_URL}
+                        href={release.windows_url ?? ""}
                         id="howto-download-btn"
                         data-analytics-channel="howto_cta"
                         data-umami-event="download_click"

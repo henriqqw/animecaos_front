@@ -1,0 +1,80 @@
+name: Track Release Downloads
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch GitHub releases
+        id: releases
+        run: |
+          DATA=$(curl -s \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/henriqqw/AnimeCaos/releases")
+
+          python3 - <<'EOF'
+          import json, os, sys
+
+          data = json.loads("""$DATA""")
+          total = 0
+          per_release = {}
+          for rel in data:
+              count = sum(a["download_count"] for a in rel["assets"])
+              total += count
+              per_release[rel["tag_name"]] = count
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"total={total}\n")
+              f.write(f"per_release={json.dumps(per_release)}\n")
+          EOF
+
+      - name: Restore download count cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: .downloads-cache
+          key: downloads-count-${{ github.run_id }}
+          restore-keys: downloads-count-
+
+      - name: Send to Umami
+        env:
+          UMAMI_URL: https://umami-rose-chi.vercel.app
+          UMAMI_WEBSITE_ID: c82f21ea-7dea-4338-bd1e-579eeb0686f9
+        run: |
+          TOTAL=${{ steps.releases.outputs.total }}
+          PER_RELEASE='${{ steps.releases.outputs.per_release }}'
+
+          LAST=0
+          if [ -f .downloads-cache/last_count ]; then
+            LAST=$(cat .downloads-cache/last_count)
+          fi
+          DELTA=$((TOTAL - LAST))
+
+          echo "Total: $TOTAL | Last: $LAST | Delta: $DELTA"
+
+          curl -sf -X POST "$UMAMI_URL/api/send" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"type\": \"event\",
+              \"payload\": {
+                \"website\": \"$UMAMI_WEBSITE_ID\",
+                \"url\": \"/releases\",
+                \"hostname\": \"animecaos.xyz\",
+                \"language\": \"pt-BR\",
+                \"name\": \"github_release_downloads\",
+                \"data\": {
+                  \"total\": $TOTAL,
+                  \"delta\": $DELTA,
+                  \"per_release\": $PER_RELEASE
+                }
+              }
+            }" && echo "Umami event sent" || echo "Umami send failed (non-blocking)"
+
+          mkdir -p .downloads-cache
+          echo "$TOTAL" > .downloads-cache/last_count

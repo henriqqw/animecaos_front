@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Download, Github, ArrowRight, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
 import VariableProximity from "@/components/ui/VariableProximity";
+import { useRelease } from "@/lib/release/context";
 
-const DOWNLOAD_URL = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
 const GITHUB_URL = "https://github.com/henriqqw/animecaos";
 
 const fadeUp: Variants = {
@@ -31,17 +31,18 @@ type TerminalLine = {
 
 export default function Hero({ locale }: HeroProps) {
     const t = useTranslations("hero");
+    const release = useRelease();
     const canvasContainerRef = useRef<HTMLDivElement | null>(null);
     const terminalLines: TerminalLine[] = useMemo(
         () => [
-            { text: "# AnimeCaos v0.1.3" },
+            { text: `# AnimeCaos ${release.tag}` },
             { text: "-> Pesquisando: attack on titan" },
             { text: "✓ 3 fontes verificadas em 1.2s", color: "#58a6ff", marginTop: "0.3rem" },
             { text: "✓ Capa AniList carregada", color: "#3fb950" },
             { text: "✓ 87 episodios encontrados", color: "#3fb950" },
             { text: "-> Reproduzindo EP 01 via mpv...", marginTop: "0.5rem" },
         ],
-        []
+        [release.tag]
     );
     const [typedLines, setTypedLines] = useState<string[]>(() => terminalLines.map(() => ""));
     const [showCursor, setShowCursor] = useState(true);
@@ -463,7 +464,7 @@ export default function Hero({ locale }: HeroProps) {
                         }}
                     >
                         <a
-                            href={DOWNLOAD_URL}
+                            href={release.windows_url ?? ""}
                             id="hero-download-btn"
                             data-analytics-channel="hero_primary"
                             data-umami-event="download_click"
@@ -518,7 +519,7 @@ export default function Hero({ locale }: HeroProps) {
                                 textShadow: "0 4px 14px rgba(0,0,0,0.45)",
                             }}
                         >
-                            {t("cta_version")}
+                            {release.tag} — {t("cta_version")}
                             <ArrowRight size={13} />
                         </Link>
                     </motion.div>

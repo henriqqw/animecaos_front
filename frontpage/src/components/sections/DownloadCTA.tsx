@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import { Download, Github, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useRelease } from "@/lib/release/context";
 
-const DOWNLOAD_URL = "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
 const GITHUB_URL = "https://github.com/henriqqw/animecaos";
 
 export default function DownloadCTA() {
     const t = useTranslations("download");
+    const release = useRelease();
 
     return (
         <section className="section" id="download-cta">
@@ -32,7 +33,7 @@ export default function DownloadCTA() {
                 >
                     <div className="badge">
                         <Download size={11} />
-                        {t("version")}
+                        {t("version")} {release.tag}
                     </div>
 
                     <h2 className="heading-lg" style={{ maxWidth: 560 }}>
@@ -45,7 +46,7 @@ export default function DownloadCTA() {
 
                     <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
                         <a
-                            href={DOWNLOAD_URL}
+                            href={release.windows_url ?? ""}
                             id="cta-download-btn"
                             data-analytics-channel="home_cta"
                             data-umami-event="download_click"
