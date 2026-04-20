@@ -345,7 +345,7 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 1rem;
   flex-shrink: 0;
 }
@@ -411,7 +411,7 @@ h6 {
   border-radius: 10px;
   border: 1px solid rgba(255, 34, 34, 0.28);
   background: linear-gradient(160deg, rgba(255, 34, 34, 0.2) 0%, rgba(255, 34, 34, 0.08) 100%);
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.65);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -427,7 +427,7 @@ h6 {
   align-items: center;
   border: 1px solid rgba(255, 34, 34, 0.24);
   background: rgba(255, 34, 34, 0.12);
-  color: #ff7d7d;
+  color: rgba(255, 255, 255, 0.65);
   border-radius: 999px;
   padding: 0.26rem 0.62rem;
   font-size: 0.72rem;
@@ -552,35 +552,54 @@ h6 {
     grid-auto-rows: minmax(150px, auto);
   }
 
-  .magic-bento-card:nth-child(1) {
-    grid-column: 1;
-    grid-row: 1;
-  }
+  /* row 1: 4 small cards */
+  .magic-bento-card:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .magic-bento-card:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .magic-bento-card:nth-child(3) { grid-column: 3; grid-row: 1; }
+  .magic-bento-card:nth-child(4) { grid-column: 4; grid-row: 1; }
 
-  .magic-bento-card:nth-child(2) {
-    grid-column: 2;
-    grid-row: 1;
-  }
+  /* row 2-3: 2 large cards */
+  .magic-bento-card:nth-child(5) { grid-column: 1 / span 2; grid-row: 2 / span 2; }
+  .magic-bento-card:nth-child(6) { grid-column: 3 / span 2; grid-row: 2 / span 2; }
+}
 
-  .magic-bento-card:nth-child(3) {
-    grid-column: 3 / span 2;
-    grid-row: 1 / span 2;
-  }
+/* ─── Bento Visuals ──────────────────────────────────────────────── */
+.magic-bento-card__visual {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0 0.5rem;
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+  width: 100%;
+}
 
-  .magic-bento-card:nth-child(4) {
-    grid-column: 1 / span 2;
-    grid-row: 2 / span 2;
-  }
+@keyframes bento-fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-  .magic-bento-card:nth-child(5) {
-    grid-column: 3;
-    grid-row: 3;
-  }
+@keyframes bento-scale-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
 
-  .magic-bento-card:nth-child(6) {
-    grid-column: 4;
-    grid-row: 3;
-  }
+@keyframes bento-countdown {
+  0%   { width: 100%; }
+  100% { width: 0%; }
+}
+
+@keyframes bento-download {
+  0%   { width: 40%; }
+  70%  { width: 82%; }
+  100% { width: 82%; }
+}
+
+@keyframes bento-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
 /* ─── Step Card ───────────────────────────────────────────────────── */

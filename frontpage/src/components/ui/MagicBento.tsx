@@ -13,6 +13,7 @@ type MagicBentoItem = {
     description: string;
     label: string;
     icon?: ReactNode;
+    visual?: ReactNode;
 };
 
 type MagicBentoProps = {
@@ -432,6 +433,9 @@ export default function MagicBento({
                                 <div className="magic-bento-card__label">{item.label}</div>
                                 {item.icon ? <div className="magic-bento-card__icon">{item.icon}</div> : null}
                             </div>
+                            {item.visual ? (
+                                <div className="magic-bento-card__visual">{item.visual}</div>
+                            ) : null}
                             <div className="magic-bento-card__content">
                                 <h3 className="magic-bento-card__title">{item.title}</h3>
                                 <p className="magic-bento-card__description">{item.description}</p>
