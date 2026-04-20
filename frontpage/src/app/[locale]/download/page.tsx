@@ -24,6 +24,7 @@ async function getLatestRelease(): Promise<LatestRelease> {
         tag: "v0.1.3",
         version: "0.1.3",
         windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe",
+        changelog: [],
     };
     try {
         const res = await fetch("https://api.github.com/repos/henriqqw/AnimeCaos/releases", {
@@ -39,6 +40,7 @@ async function getLatestRelease(): Promise<LatestRelease> {
             tag: latest.tag_name,
             version: latest.tag_name.replace(/^v/, ""),
             windows_url: exe?.browser_download_url ?? fallback.windows_url,
+            changelog: [],
         };
     } catch {
         return fallback;
