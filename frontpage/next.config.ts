@@ -11,16 +11,6 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "raw.githubusercontent.com" },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host" as const, value: "www.animecaos.xyz" }],
-        destination: "https://animecaos.xyz/:path*",
-        permanent: true,
-      },
-    ];
-  },
   async headers() {
     return [
       {
