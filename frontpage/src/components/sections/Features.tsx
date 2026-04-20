@@ -46,9 +46,9 @@ function HubVisual() {
 
             {/* sources */}
             {[
-                { name: "Anroll",     time: "1.2s", delay: 0.05 },
-                { name: "Gogoanime", time: "0.8s", delay: 0.18 },
-                { name: "Betaanime", time: "1.1s", delay: 0.31 },
+                { name: "87 episódios",  time: "HD",  delay: 0.05 },
+                { name: "Legendado PT", time: "✓",    delay: 0.18 },
+                { name: "Dublado PT",   time: "✓",    delay: 0.31 },
             ].map((s, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", ...row(s.delay) }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
