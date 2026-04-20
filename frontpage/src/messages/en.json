@@ -34,7 +34,7 @@
       },
       {
         "title": "Auto-Play",
-        "desc": "Episode-end detector that auto-advances. Binge without interruption."
+        "desc": "Detects the end of an episode and automatically plays the next one. Watch as many as you want."
       },
       {
         "title": "Offline Download",

@@ -1,11 +1,74 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { Download, Github, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRelease } from "@/lib/release/context";
 
 const GITHUB_URL = "https://github.com/henriqqw/animecaos";
+const HEARTS = ["❤️", "🩷", "💕", "✨", "💖"];
+
+function ChibiPet() {
+    const [petting, setPetting] = useState(false);
+    const [hearts, setHearts] = useState<{ id: number; x: number; emoji: string }[]>([]);
+    const petIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const stopTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const heartIdRef = useRef(0);
+
+    const spawnHeart = useCallback(() => {
+        const x = 20 + Math.random() * 60;
+        const emoji = HEARTS[Math.floor(Math.random() * HEARTS.length)];
+        const id = heartIdRef.current++;
+        setHearts((prev) => [...prev, { id, x, emoji }]);
+        setTimeout(() => setHearts((prev) => prev.filter((h) => h.id !== id)), 1100);
+    }, []);
+
+    const stopPetting = useCallback(() => {
+        setPetting(false);
+        if (petIntervalRef.current) {
+            clearInterval(petIntervalRef.current);
+            petIntervalRef.current = null;
+        }
+    }, []);
+
+    const handleClick = useCallback(() => {
+        spawnHeart();
+        setPetting(true);
+        if (stopTimerRef.current) clearTimeout(stopTimerRef.current);
+        stopTimerRef.current = setTimeout(stopPetting, 600);
+    }, [spawnHeart, stopPetting]);
+
+    useEffect(() => () => { stopPetting(); }, [stopPetting]);
+
+    return (
+        <div
+            className={`chibi-wrapper cta-character${petting ? " petting" : ""}`}
+            onClick={handleClick}
+            aria-hidden="true"
+        >
+            {hearts.map((h) => (
+                <span
+                    key={h.id}
+                    className="chibi-heart"
+                    style={{ left: `${h.x}%`, bottom: "80%" }}
+                >
+                    {h.emoji}
+                </span>
+            ))}
+
+            <Image
+                src="/frieren_footer.webp"
+                alt=""
+                width={260}
+                height={380}
+                className="chibi-img"
+                draggable={false}
+            />
+        </div>
+    );
+}
 
 export default function DownloadCTA() {
     const t = useTranslations("download");
@@ -22,7 +85,7 @@ export default function DownloadCTA() {
                     className="liquid-glass"
                     style={{
                         position: "relative",
-                        overflow: "visible",
+                        overflow: "hidden",
                         padding: "clamp(2rem, 5vw, 4rem)",
                         textAlign: "center",
                         display: "flex",
@@ -73,6 +136,11 @@ export default function DownloadCTA() {
                     <p className="cta-note">
                         {t("note")}
                     </p>
+
+                    {/* zero-size anchor so chibi doesn't affect card layout */}
+                    <div style={{ position: "absolute", bottom: 0, right: 0, width: 0, height: 0, overflow: "visible" }} aria-hidden="true">
+                        <ChibiPet />
+                    </div>
                 </motion.div>
             </div>
         </section>
