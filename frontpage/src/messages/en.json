@@ -12,7 +12,7 @@
     "headline2": "Anime Streaming",
     "headline3": "",
     "sub": "AnimeCaos searches, extracts and delivers links straight from the source. All in a clean, fast player with download support. Also integrates with AniList!",
-    "cta_download": "Download for Windows",
+    "cta_download": "Download AnimeCaos",
     "cta_github": "View on GitHub",
     "cta_version": "Latest release"
   },
@@ -59,28 +59,29 @@
   },
   "download": {
     "title": "Ready to start?",
-    "sub": "A direct .exe file. Requires Mozilla Firefox.",
-    "btn": "Download .EXE File",
+    "sub": "Standalone. Install, open and watch.",
+    "btn": "Download for Windows",
     "version": "Version",
-    "note": "Requires Windows 10/11 • ⚠️ MANDATORY: Mozilla Firefox must be installed on your system.",
-    "linux_title": "AnimeCaos Flatpak",
-    "linux_sub": "Build and install via Flatpak straight from source.",
-    "linux_build_label": "Build",
-    "linux_run_label": "Run after build",
-    "linux_note": "Requires Flatpak and build dependencies installed.",
+    "note": "Mozilla Firefox required",
     "includes_title": "What's included",
-    "source_title": "Install from source",
-    "requirements": "System Requirements",
-    "req_items": [
-      "Windows 10/11 64-bit",
-      "Mozilla Firefox",
-      "Python 3.10+ (source only)"
+    "includes": [
+      "Integrated mpv player",
+      "yt-dlp for offline downloads",
+      "AniList integration",
+      "Search across 3+ Brazilian sources"
     ],
-    "req_items_linux": [
-      "Ubuntu 20.04+ / Fedora 38+ / Arch",
-      "Flatpak installed",
-      "Python 3.10+ and build dependencies"
-    ]
+    "linux_title": "AnimeCaos Flatpak",
+    "linux_sub": "Ubuntu, Fedora, Arch and any Flatpak distro.",
+    "linux_build_label": "Build",
+    "linux_run_label": "Run",
+    "linux_note": "Requires Flatpak and build dependencies.",
+    "mac_title": "AnimeCaos for macOS",
+    "mac_sub": "Install via Python. Supports macOS 12+.",
+    "mac_install_label": "Install",
+    "mac_run_label": "Run",
+    "mac_note": "Requires Python 3.10+ and Mozilla Firefox.",
+    "cta_sub": "Available for Windows, macOS and Linux.",
+    "cta_btn": "See Downloads"
   },
   "about": {
     "title": "Why does AnimeCaos exist?",
@@ -130,6 +131,14 @@
     "caption_search": "Search with dynamic covers and AniList metadata",
     "caption_detail": "Anime details with synopsis, cover and episode list",
     "caption_player": "Built-in player with auto-play and download support"
+  },
+  "social": {
+    "label": "Community",
+    "title": "Follow along",
+    "sub": "Updates, releases and behind the scenes on Twitter and Instagram.",
+    "follow_now": "+follow now",
+    "follow_twitter": "Follow on X",
+    "follow_instagram": "Follow on Instagram"
   },
   "footer": {
     "made": "Made with ☕ by",

@@ -36,8 +36,12 @@ export default function Navbar({ locale }: NavbarProps) {
     const otherLocale = locale === "pt" ? "en" : "pt";
     const otherPath = pathname.replace(`/${locale}`, `/${otherLocale}`);
 
+    const scrollToHero = () => {
+        document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+    };
+
     const navLinks = [
-        { href: `/${locale}`, label: t("home") },
+        { href: `/${locale}#hero`, label: t("home") },
         { href: `/${locale}/about`, label: t("about") },
         { href: `/${locale}/download`, label: t("download") },
         { href: `/${locale}/how-to-use`, label: t("howToUse") },
@@ -45,8 +49,9 @@ export default function Navbar({ locale }: NavbarProps) {
     ];
 
     const isActive = (href: string) => {
-        if (href === `/${locale}`) return pathname === `/${locale}`;
-        return pathname.startsWith(href);
+        const cleanHref = href.split("#")[0];
+        if (cleanHref === `/${locale}`) return pathname === `/${locale}`;
+        return pathname.startsWith(cleanHref);
     };
 
     return (
@@ -81,7 +86,8 @@ export default function Navbar({ locale }: NavbarProps) {
                 >
                     {/* Logo */}
                     <Link
-                        href={`/${locale}`}
+                        href={`/${locale}#hero`}
+                        onClick={scrollToHero}
                         style={{
                             display: "flex",
                             alignItems: "center",
@@ -130,6 +136,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                 <Link
                                     key={link.href}
                                     href={link.href}
+                                    onClick={link.href.includes("#") ? scrollToHero : undefined}
                                     className={`nav-link${isActive(link.href) ? " nav-link--active" : ""}`}
                                     style={{
                                         padding: "0.4rem 1rem",
@@ -185,20 +192,16 @@ export default function Navbar({ locale }: NavbarProps) {
                             GitHub
                         </a>
 
-                        <a
-                            href={release.windows_url ?? ""}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Link
+                            href={`/${locale}/download`}
                             id="nav-download-btn"
-                            data-analytics-channel="navbar_desktop"
-                            data-umami-event="download_click"
-                            data-umami-event-channel="navbar_desktop"
+                            data-umami-event="navbar_download_page"
                             className="btn btn-primary"
                             style={{ padding: "0.4rem 0.9rem", fontSize: "0.85rem" }}
                         >
                             <Download size={15} />
                             Download
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Mobile hamburger */}
@@ -299,7 +302,10 @@ export default function Navbar({ locale }: NavbarProps) {
                                 >
                                     <Link
                                         href={link.href}
-                                        onClick={() => setMobileOpen(false)}
+                                        onClick={() => {
+                                            setMobileOpen(false);
+                                            if (link.href.includes("#")) scrollToHero();
+                                        }}
                                         style={{
                                             display: "block",
                                             padding: "0.85rem 1rem",
@@ -337,20 +343,17 @@ export default function Navbar({ locale }: NavbarProps) {
                                 >
                                     {otherLocale === "pt" ? "🇧🇷 PT-BR" : "🇺🇸 EN"}
                                 </Link>
-                                <a
-                                    href={release.windows_url ?? ""}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <Link
+                                    href={`/${locale}/download`}
                                     id="nav-mobile-download-btn"
-                                    data-analytics-channel="navbar_mobile"
-                                    data-umami-event="download_click"
-                                    data-umami-event-channel="navbar_mobile"
+                                    data-umami-event="navbar_mobile_download_page"
                                     className="btn btn-primary"
                                     style={{ justifyContent: "center" }}
+                                    onClick={() => setMobileOpen(false)}
                                 >
                                     <Download size={16} />
                                     Download {release.tag}
-                                </a>
+                                </Link>
                             </div>
                         </motion.div>
                     </>

@@ -32,8 +32,8 @@ const BTN: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: 26,
-    height: 26,
+    width: 28,
+    height: 28,
     borderRadius: "50%",
     border: "1px solid rgba(255,255,255,0.12)",
     background: "rgba(255,255,255,0.05)",
@@ -64,7 +64,6 @@ const SOCIAL_ICON_LINK: React.CSSProperties = {
     justifyContent: "center",
     width: 22,
     height: 22,
-    flexShrink: 0,
     borderRadius: "50%",
     color: "var(--text-muted)",
     textDecoration: "none",
@@ -80,11 +79,6 @@ const SOCIAL_TEXT_LINK: React.CSSProperties = {
     color: "var(--text-muted)",
     letterSpacing: "0.05em",
     textDecoration: "none",
-    minWidth: 0,
-    maxWidth: "100%",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
     transition: "color 0.2s ease, opacity 0.2s ease",
 };
 
@@ -108,31 +102,26 @@ export default function SocialFeed() {
     const twitterTotal = TWITTER_TWEET_IDS.length;
     const instagramTotal = INSTAGRAM_POSTS.length;
 
-    const fitTweetToViewport = (slot: HTMLDivElement, tweetElement: HTMLElement, retry = 0) => {
-        const slide = slot.closest('[data-twitter-slide="true"]') as HTMLElement | null;
-        const container = slide ?? slot;
-        const safeInset = window.innerWidth <= 768 ? 12 : 18;
-
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
+    const fitTweetIntoSquare = (slot: HTMLDivElement, tweetElement: HTMLElement, retry = 0) => {
+        const slotRect = slot.getBoundingClientRect();
         const tweetWidth = tweetElement.offsetWidth;
         const tweetHeight = tweetElement.offsetHeight;
 
-        if (!containerWidth || !containerHeight || !tweetWidth || !tweetHeight) {
+        if (!slotRect.width || !slotRect.height || !tweetWidth || !tweetHeight) {
             if (retry < 8) {
-                window.setTimeout(() => fitTweetToViewport(slot, tweetElement, retry + 1), 120);
+                window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement, retry + 1), 120);
             }
             return;
         }
 
-        const availableWidth = Math.max(250, containerWidth - safeInset * 2);
-        const availableHeight = Math.max(220, containerHeight - safeInset * 2);
-        const scale = Math.min(availableWidth / tweetWidth, availableHeight / tweetHeight);
-        const clampedScale = Math.min(1.35, scale);
+        const scale = Math.min(
+            1,
+            slotRect.width / tweetWidth,
+            slotRect.height / tweetHeight,
+        );
 
         tweetElement.style.transformOrigin = "center center";
-        tweetElement.style.transform = `scale(${clampedScale})`;
-        tweetElement.style.margin = "0 auto";
+        tweetElement.style.transform = `scale(${scale})`;
     };
 
     const renderTwitterTweet = async (index: number, retry = 0) => {
@@ -143,29 +132,22 @@ export default function SocialFeed() {
         if (!tweetId || !slot || !twttr?.widgets?.createTweet || slot.dataset.rendered === "1") return;
 
         try {
-            const slotWidth = slot.getBoundingClientRect().width;
-            const parentWidth = slot.parentElement?.getBoundingClientRect().width ?? 0;
-            const slideWidth = (slot.closest('[data-twitter-slide="true"]') as HTMLElement | null)?.getBoundingClientRect().width ?? 0;
-            const containerWidth = Math.floor(slotWidth || parentWidth || slideWidth || 550);
-            const safeInset = window.innerWidth <= 768 ? 12 : 18;
-            const safeWidth = Math.max(250, containerWidth - safeInset * 2);
-            const requestedWidth = Math.max(250, Math.min(550, safeWidth));
+            const containerWidth = slot.parentElement?.clientWidth ?? slot.clientWidth;
             slot.innerHTML = "";
             const tweetElement = await twttr.widgets.createTweet(tweetId, slot, {
                 align: "center",
                 theme: "dark",
                 dnt: true,
                 conversation: "none",
-                width: requestedWidth,
+                width: Math.max(250, Math.floor(containerWidth)),
                 cards: "hidden",
             });
             if (tweetElement) {
-                tweetElement.style.margin = "0 auto";
                 tweetElement.style.width = "100%";
-                tweetElement.style.maxWidth = `${requestedWidth}px`;
-                fitTweetToViewport(slot, tweetElement);
-                window.setTimeout(() => fitTweetToViewport(slot, tweetElement), 220);
-                window.setTimeout(() => fitTweetToViewport(slot, tweetElement), 700);
+                tweetElement.style.maxWidth = "100%";
+                fitTweetIntoSquare(slot, tweetElement);
+                window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement), 200);
+                window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement), 700);
             }
             slot.dataset.rendered = "1";
         } catch {
@@ -216,10 +198,9 @@ export default function SocialFeed() {
         const onResize = () => {
             twitterSlidesRef.current.forEach((slot) => {
                 if (!slot) return;
-                const tweet = (slot.querySelector(".twitter-tweet, .twitter-tweet-rendered") as HTMLElement | null)
-                    ?? (slot.firstElementChild as HTMLElement | null);
+                const tweet = slot.querySelector(".twitter-tweet") as HTMLElement | null;
                 if (!tweet) return;
-                fitTweetToViewport(slot, tweet);
+                fitTweetIntoSquare(slot, tweet);
             });
         };
 
@@ -231,7 +212,7 @@ export default function SocialFeed() {
     const goInstagram = (i: number) => setIgIdx((i + instagramTotal) % instagramTotal);
 
     return (
-        <section className="social-feed-section" style={{ padding: "5rem 0" }}>
+        <section style={{ padding: "5rem 0" }}>
             <div className="container">
                 <div style={{ textAlign: "center", marginBottom: "3rem" }}>
                     <p style={{ fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "0.75rem" }}>
@@ -246,15 +227,14 @@ export default function SocialFeed() {
                 </div>
 
                 <div className="social-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
-                    <div className="glass social-card" style={{ borderRadius: "var(--radius-lg)", padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
+                    <div className="glass" style={{ borderRadius: "var(--radius-lg)", padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", flexShrink: 0 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", minWidth: 0, flex: 1 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", minWidth: 0 }}>
                                 <a
                                     href={`https://x.com/${TWITTER_HANDLE}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Abrir perfil no X"
-                                    className="social-icon-link"
                                     style={SOCIAL_ICON_LINK}
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.color = "var(--text)";
@@ -274,7 +254,6 @@ export default function SocialFeed() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Seguir perfil no X"
-                                    className="social-handle-link"
                                     style={SOCIAL_TEXT_LINK}
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.color = "var(--text)";
@@ -284,11 +263,11 @@ export default function SocialFeed() {
                                     }}
                                 >
                                     <span>@{TWITTER_HANDLE}</span>
-                                    <span className="social-follow-now" style={{ color: "var(--accent)" }}>{t("follow_now")}</span>
+                                    <span style={{ color: "var(--accent)" }}>{t("follow_now")}</span>
                                 </a>
                             </div>
                             {twitterTotal > 1 && (
-                                <div style={{ display: "flex", gap: "0.25rem", flexShrink: 0 }}>
+                                <div style={{ display: "flex", gap: "0.35rem" }}>
                                     <button
                                         style={BTN}
                                         onClick={() => goTwitter(twIdx - 1)}
@@ -331,19 +310,30 @@ export default function SocialFeed() {
                                     }}
                                 >
                                     <div
-                                        ref={(el) => {
-                                            twitterSlidesRef.current[i] = el;
-                                        }}
                                         style={{
-                                            width: "100%",
-                                            maxWidth: 550,
                                             height: "100%",
+                                            aspectRatio: "1 / 1",
+                                            maxWidth: "100%",
                                             display: "flex",
                                             justifyContent: "center",
                                             alignItems: "center",
-                                            margin: "0 auto",
+                                            overflow: "hidden",
                                         }}
-                                    />
+                                    >
+                                        <div
+                                            ref={(el) => {
+                                                twitterSlidesRef.current[i] = el;
+                                            }}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                overflow: "hidden",
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -379,15 +369,14 @@ export default function SocialFeed() {
                         />
                     </div>
 
-                    <div className="glass social-card" style={{ borderRadius: "var(--radius-lg)", padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
+                    <div className="glass" style={{ borderRadius: "var(--radius-lg)", padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", flexShrink: 0 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", minWidth: 0, flex: 1 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", minWidth: 0 }}>
                                 <a
                                     href={`https://instagram.com/${INSTAGRAM_HANDLE}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Abrir perfil no Instagram"
-                                    className="social-icon-link"
                                     style={SOCIAL_ICON_LINK}
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.color = "var(--text)";
@@ -407,7 +396,6 @@ export default function SocialFeed() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Seguir perfil no Instagram"
-                                    className="social-handle-link"
                                     style={SOCIAL_TEXT_LINK}
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.color = "var(--text)";
@@ -417,11 +405,11 @@ export default function SocialFeed() {
                                     }}
                                 >
                                     <span>@{INSTAGRAM_HANDLE}</span>
-                                    <span className="social-follow-now" style={{ color: "var(--accent)" }}>{t("follow_now")}</span>
+                                    <span style={{ color: "var(--accent)" }}>{t("follow_now")}</span>
                                 </a>
                             </div>
                             {instagramTotal > 1 && (
-                                <div style={{ display: "flex", gap: "0.25rem", flexShrink: 0 }}>
+                                <div style={{ display: "flex", gap: "0.35rem" }}>
                                     <button
                                         style={BTN}
                                         onClick={() => goInstagram(igIdx - 1)}
