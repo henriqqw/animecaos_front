@@ -288,6 +288,7 @@ export default function Hero({ locale }: HeroProps) {
 
     return (
         <section
+            id="hero"
             style={{
                 position: "relative",
                 zIndex: 1,
@@ -465,12 +466,10 @@ export default function Hero({ locale }: HeroProps) {
                             filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.45))",
                         }}
                     >
-                        <a
-                            href={release.windows_url ?? ""}
+                        <Link
+                            href={`/${locale}/download`}
                             id="hero-download-btn"
-                            data-analytics-channel="hero_primary"
-                            data-umami-event="download_click"
-                            data-umami-event-channel="hero"
+                            data-umami-event="hero_download_cta"
                             className="btn btn-primary"
                             style={{
                                 fontSize: "1rem",
@@ -480,7 +479,7 @@ export default function Hero({ locale }: HeroProps) {
                         >
                             <Download size={18} />
                             {t("cta_download")}
-                        </a>
+                        </Link>
                         <a
                             href={GITHUB_URL}
                             target="_blank"
@@ -499,6 +498,29 @@ export default function Hero({ locale }: HeroProps) {
                             <Github size={18} />
                             {t("cta_github")}
                         </a>
+                    </motion.div>
+
+                    {/* Platform support */}
+                    <motion.div
+                        variants={fadeUp}
+                        initial="hidden"
+                        animate="visible"
+                        custom={0.78}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            fontSize: "0.78rem",
+                            color: "rgba(200, 215, 240, 0.55)",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <span>Windows</span>
+                        <span style={{ opacity: 0.5 }}>·</span>
+                        <span>macOS</span>
+                        <span style={{ opacity: 0.5 }}>·</span>
+                        <span>Linux</span>
                     </motion.div>
 
                     {/* Version hint */}

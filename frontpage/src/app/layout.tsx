@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { PT_HOME_DESCRIPTION, PT_HOME_TITLE, SITE_NAME, SITE_URL, SITE_X_HANDLE } from "@/lib/seo";
-import FirstPartyTracker from "@/components/analytics/FirstPartyTracker";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -54,11 +52,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script defer src="https://umami-rose-chi.vercel.app/script.js" data-website-id="c82f21ea-7dea-4338-bd1e-579eeb0686f9" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         {children}
-        <Suspense fallback={null}>
-          <FirstPartyTracker />
-        </Suspense>
       </body>
     </html>
   );

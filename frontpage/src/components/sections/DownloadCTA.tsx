@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Download, Github, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRelease } from "@/lib/release/context";
 
 const GITHUB_URL = "https://github.com/henriqqw/animecaos";
@@ -73,6 +73,7 @@ function ChibiPet() {
 export default function DownloadCTA() {
     const t = useTranslations("download");
     const release = useRelease();
+    const locale = useLocale();
 
     return (
         <section className="section" id="download-cta">
@@ -104,21 +105,19 @@ export default function DownloadCTA() {
                     </h2>
 
                     <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: 460 }}>
-                        {t("sub")}
+                        {t("cta_sub")}
                     </p>
 
                     <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
                         <a
-                            href={release.windows_url ?? ""}
+                            href={`/${locale}/download`}
                             id="cta-download-btn"
-                            data-analytics-channel="home_cta"
-                            data-umami-event="download_click"
-                            data-umami-event-channel="home_cta"
+                            data-umami-event="home_cta_downloads"
                             className="btn btn-primary"
                             style={{ fontSize: "1.05rem", padding: "0.9rem 2rem" }}
                         >
                             <Download size={18} />
-                            {t("btn")}
+                            {t("cta_btn")}
                         </a>
                         <a
                             href={GITHUB_URL}
@@ -132,10 +131,6 @@ export default function DownloadCTA() {
                             <ArrowRight size={16} />
                         </a>
                     </div>
-
-                    <p className="cta-note">
-                        {t("note")}
-                    </p>
 
                     {/* zero-size anchor so chibi doesn't affect card layout */}
                     <div style={{ position: "absolute", bottom: 0, right: 0, width: 0, height: 0, overflow: "visible" }} aria-hidden="true">

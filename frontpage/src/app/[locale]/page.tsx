@@ -6,6 +6,7 @@ import Features from "@/components/sections/Features";
 import Stats from "@/components/sections/Stats";
 import Screenshots from "@/components/sections/Screenshots";
 import DownloadCTA from "@/components/sections/DownloadCTA";
+import SocialFeed from "@/components/sections/SocialFeed";
 import {
   buildLocalizedMetadata,
   EN_HOME_DESCRIPTION,
@@ -88,6 +89,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Features />
       <Stats />
       <Screenshots />
+      <SocialFeed />
       <DownloadCTA />
     </PageWrapper>
   );
