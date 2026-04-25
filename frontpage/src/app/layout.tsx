@@ -20,17 +20,17 @@ export const metadata: Metadata = {
   ],
   robots: { index: true, follow: true },
   alternates: {
-    canonical: `${SITE_URL}/pt`,
+    canonical: SITE_URL,
     languages: {
+      pt: SITE_URL,
       en: `${SITE_URL}/en`,
-      pt: `${SITE_URL}/pt`,
-      "x-default": `${SITE_URL}/pt`,
+      "x-default": SITE_URL,
     },
   },
   openGraph: {
     title: PT_HOME_TITLE,
     description: PT_HOME_DESCRIPTION,
-    url: `${SITE_URL}/pt`,
+    url: SITE_URL,
     siteName: SITE_NAME,
     type: "website",
   },

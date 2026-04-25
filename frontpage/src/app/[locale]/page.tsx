@@ -41,36 +41,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-const getSitelinksJsonLd = (locale: string) => {
-  const baseUrl = `https://animecaos.xyz/${locale}`;
+const getSitelinksJsonLd = () => {
+  const baseUrl = "https://animecaos.xyz/en";
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     itemListElement: [
-      {
-        "@type": "SiteNavigationElement",
-        position: 1,
-        name: locale === "pt" ? "Sobre" : "About",
-        url: `${baseUrl}/about`,
-      },
-      {
-        "@type": "SiteNavigationElement",
-        position: 2,
-        name: "Download",
-        url: `${baseUrl}/download`,
-      },
-      {
-        "@type": "SiteNavigationElement",
-        position: 3,
-        name: locale === "pt" ? "Como Usar" : "How to Use",
-        url: `${baseUrl}/how-to-use`,
-      },
-      {
-        "@type": "SiteNavigationElement",
-        position: 4,
-        name: locale === "pt" ? "Contato" : "Contact",
-        url: `${baseUrl}/contact`,
-      },
+      { "@type": "SiteNavigationElement", position: 1, name: "About", url: `${baseUrl}/about` },
+      { "@type": "SiteNavigationElement", position: 2, name: "Download", url: `${baseUrl}/download` },
+      { "@type": "SiteNavigationElement", position: 3, name: "How to Use", url: `${baseUrl}/how-to-use` },
+      { "@type": "SiteNavigationElement", position: 4, name: "Contact", url: `${baseUrl}/contact` },
     ],
   };
 };
@@ -83,7 +63,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Script
         id="sitelinks-ld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(getSitelinksJsonLd(locale)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getSitelinksJsonLd()) }}
       />
       <Hero locale={locale} />
       <Features />

@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "raw.githubusercontent.com" },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/pt", destination: "/", permanent: true },
+      { source: "/pt/:path*", destination: "/:path*", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

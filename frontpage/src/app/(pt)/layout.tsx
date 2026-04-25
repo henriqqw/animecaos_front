@@ -1,13 +1,9 @@
-import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { EN_HOME_DESCRIPTION, PT_HOME_DESCRIPTION } from "@/lib/seo";
+import { PT_HOME_DESCRIPTION } from "@/lib/seo";
 import { ReleaseProvider } from "@/lib/release/context";
-import "../globals.css";
 
-const locales = ["en"] as const;
-
-function buildOrganizationJsonLd(locale: "pt" | "en") {
+function buildOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -28,33 +24,20 @@ function buildOrganizationJsonLd(locale: "pt" | "en") {
         "@id": "https://animecaos.xyz/#website",
         url: "https://animecaos.xyz",
         name: "AnimeCaos",
-        description: locale === "pt" ? PT_HOME_DESCRIPTION : EN_HOME_DESCRIPTION,
+        description: PT_HOME_DESCRIPTION,
         publisher: { "@id": "https://animecaos.xyz/#organization" },
-        inLanguage: ["en-US"],
+        inLanguage: ["pt-BR"],
       },
     ],
   };
 }
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-
-  if (!locales.includes(locale as (typeof locales)[number])) {
-    notFound();
-  }
-
-  const appLocale = locale as (typeof locales)[number];
-  const messages = await getMessages({ locale: appLocale });
-  const organizationJsonLd = buildOrganizationJsonLd(appLocale);
+export default async function PtLayout({ children }: { children: React.ReactNode }) {
+  const messages = await getMessages({ locale: "pt" });
+  const organizationJsonLd = buildOrganizationJsonLd();
 
   return (
-    <NextIntlClientProvider locale={appLocale} messages={messages}>
+    <NextIntlClientProvider locale="pt" messages={messages}>
       <ReleaseProvider>
         <script
           type="application/ld+json"

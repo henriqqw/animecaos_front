@@ -42,7 +42,8 @@ export function buildLocalizedMetadata({
   keywords?: string[];
 }): Metadata {
   const path = normalizePathname(pathname);
-  const canonical = `${SITE_URL}/${locale}${path}`;
+  // PT is served at root (no /pt prefix); EN keeps /en prefix
+  const canonical = locale === "pt" ? `${SITE_URL}${path}` : `${SITE_URL}/en${path}`;
   const finalTitle = absoluteTitle ?? title;
 
   return {
@@ -52,9 +53,9 @@ export function buildLocalizedMetadata({
     alternates: {
       canonical,
       languages: {
-        pt: `${SITE_URL}/pt${path}`,
+        pt: `${SITE_URL}${path}`,
         en: `${SITE_URL}/en${path}`,
-        "x-default": `${SITE_URL}/pt${path}`,
+        "x-default": `${SITE_URL}${path}`,
       },
     },
     openGraph: {
