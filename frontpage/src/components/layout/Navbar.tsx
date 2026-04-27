@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, Github } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRelease } from "@/lib/release/context";
+import { localizeCurrentPath, localizePath } from "@/lib/locale-paths";
 
 const GITHUB = "https://github.com/henriqqw/animecaos";
 
@@ -20,6 +21,8 @@ export default function Navbar({ locale }: NavbarProps) {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const homePath = localizePath(locale, "/");
+    const downloadPath = localizePath(locale, "/download");
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
@@ -34,23 +37,23 @@ export default function Navbar({ locale }: NavbarProps) {
     }, [mobileOpen]);
 
     const otherLocale = locale === "pt" ? "en" : "pt";
-    const otherPath = pathname.replace(`/${locale}`, `/${otherLocale}`);
+    const otherPath = localizeCurrentPath(pathname, otherLocale);
 
     const scrollToHero = () => {
         document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
     };
 
     const navLinks = [
-        { href: `/${locale}#hero`, label: t("home") },
-        { href: `/${locale}/about`, label: t("about") },
-        { href: `/${locale}/download`, label: t("download") },
-        { href: `/${locale}/how-to-use`, label: t("howToUse") },
-        { href: `/${locale}/contact`, label: t("contact") },
+        { href: `${homePath}#hero`, label: t("home") },
+        { href: localizePath(locale, "/about"), label: t("about") },
+        { href: localizePath(locale, "/download"), label: t("download") },
+        { href: localizePath(locale, "/how-to-use"), label: t("howToUse") },
+        { href: localizePath(locale, "/contact"), label: t("contact") },
     ];
 
     const isActive = (href: string) => {
         const cleanHref = href.split("#")[0];
-        if (cleanHref === `/${locale}`) return pathname === `/${locale}`;
+        if (cleanHref === homePath) return pathname === homePath;
         return pathname.startsWith(cleanHref);
     };
 
@@ -86,7 +89,7 @@ export default function Navbar({ locale }: NavbarProps) {
                 >
                     {/* Logo */}
                     <Link
-                        href={`/${locale}#hero`}
+                        href={`${homePath}#hero`}
                         onClick={scrollToHero}
                         style={{
                             display: "flex",
@@ -193,7 +196,7 @@ export default function Navbar({ locale }: NavbarProps) {
                         </a>
 
                         <Link
-                            href={`/${locale}/download`}
+                            href={downloadPath}
                             id="nav-download-btn"
                             data-umami-event="navbar_download_page"
                             className="btn btn-primary"
@@ -344,7 +347,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                     {otherLocale === "pt" ? "🇧🇷 PT-BR" : "🇺🇸 EN"}
                                 </Link>
                                 <Link
-                                    href={`/${locale}/download`}
+                                    href={downloadPath}
                                     id="nav-mobile-download-btn"
                                     data-umami-event="navbar_mobile_download_page"
                                     className="btn btn-primary"

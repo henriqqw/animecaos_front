@@ -218,12 +218,16 @@ const ScrollStack = ({
         setupLenis();
         updateCardTransforms();
 
+        const cleanupAnimationFrame = animationFrameRef.current;
+        const cleanupLenis = lenisRef.current;
+        const cleanupLastTransforms = lastTransformsRef.current;
+
         return () => {
-            if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
-            if (lenisRef.current) lenisRef.current.destroy();
+            if (cleanupAnimationFrame) cancelAnimationFrame(cleanupAnimationFrame);
+            if (cleanupLenis) cleanupLenis.destroy();
             stackCompletedRef.current = false;
             cardsRef.current = [];
-            lastTransformsRef.current.clear();
+            cleanupLastTransforms.clear();
             isUpdatingRef.current = false;
         };
     }, [itemDistance, setupLenis, updateCardTransforms]);

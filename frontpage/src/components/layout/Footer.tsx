@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Github, Twitter, Mail, MessageCircle, Instagram, Linkedin } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { localizePath } from "@/lib/locale-paths";
 
 const LINKS = [
     { icon: Github, label: "GitHub", href: "https://github.com/henriqqw/animecaos" },
@@ -22,11 +23,11 @@ export default function Footer({ locale }: FooterProps) {
     const navT = useTranslations("nav");
 
     const navLinks = [
-        { href: `/${locale}`, label: navT("home"), event: "nav_home" },
-        { href: `/${locale}/about`, label: navT("about"), event: "nav_about" },
-        { href: `/${locale}/download`, label: navT("download"), event: "nav_download" },
-        { href: `/${locale}/how-to-use`, label: navT("howToUse"), event: "nav_howto" },
-        { href: `/${locale}/contact`, label: navT("contact"), event: "nav_contact" },
+        { href: localizePath(locale, "/"), label: navT("home"), event: "nav_home" },
+        { href: localizePath(locale, "/about"), label: navT("about"), event: "nav_about" },
+        { href: localizePath(locale, "/download"), label: navT("download"), event: "nav_download" },
+        { href: localizePath(locale, "/how-to-use"), label: navT("howToUse"), event: "nav_howto" },
+        { href: localizePath(locale, "/contact"), label: navT("contact"), event: "nav_contact" },
     ];
 
     return (

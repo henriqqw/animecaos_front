@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { Instagram, Twitter, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const TWITTER_POSTS: string[] = [
     "https://x.com/getanimecaos/status/2045256971670970830",
@@ -14,8 +14,9 @@ const TWITTER_POSTS: string[] = [
 ];
 
 const INSTAGRAM_POSTS: string[] = [
-    "https://www.instagram.com/p/DWB6SXBjVMQ/",
+    "https://www.instagram.com/p/DXjebsigEaa/?img_index=1",
     "https://www.instagram.com/p/DXPR1S7gG80/",
+    "https://www.instagram.com/p/DWB6SXBjVMQ/",
 ];
 
 const TWITTER_TWEET_IDS: string[] = TWITTER_POSTS
@@ -27,6 +28,32 @@ const INSTAGRAM_HANDLE = "getanimecaos";
 const CARD_H = 610;
 // Instagram oEmbed accepts maxwidth between 320 and 658. Using the minimum keeps the full post visible in a fixed-height card.
 const INSTAGRAM_EMBED_W = 320;
+
+type TwitterCreateTweet = (
+    tweetId: string,
+    target: HTMLElement,
+    options: {
+        align: "center";
+        theme: "dark";
+        dnt: boolean;
+        conversation: "none";
+        width: number;
+        cards: "hidden";
+    }
+) => Promise<HTMLElement | null>;
+
+type SocialWindow = Window & {
+    twttr?: {
+        widgets?: {
+            createTweet?: TwitterCreateTweet;
+        };
+    };
+    instgrm?: {
+        Embeds?: {
+            process: () => void;
+        };
+    };
+};
 
 const BTN: React.CSSProperties = {
     display: "flex",
@@ -102,88 +129,78 @@ export default function SocialFeed() {
     const twitterTotal = TWITTER_TWEET_IDS.length;
     const instagramTotal = INSTAGRAM_POSTS.length;
 
-    const fitTweetIntoSquare = (slot: HTMLDivElement, tweetElement: HTMLElement, retry = 0) => {
-        const slotRect = slot.getBoundingClientRect();
-        const tweetWidth = tweetElement.offsetWidth;
-        const tweetHeight = tweetElement.offsetHeight;
+    const fitTweetIntoSquare = useCallback((slot: HTMLDivElement, tweetElement: HTMLElement) => {
+        const attemptFit = (retry: number) => {
+            const slotRect = slot.getBoundingClientRect();
+            const tweetWidth = tweetElement.offsetWidth;
+            const tweetHeight = tweetElement.offsetHeight;
 
-        if (!slotRect.width || !slotRect.height || !tweetWidth || !tweetHeight) {
-            if (retry < 8) {
-                window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement, retry + 1), 120);
+            if (!slotRect.width || !slotRect.height || !tweetWidth || !tweetHeight) {
+                if (retry < 8) {
+                    window.setTimeout(() => attemptFit(retry + 1), 120);
+                }
+                return;
             }
-            return;
-        }
 
-        const scale = Math.min(
-            1,
-            slotRect.width / tweetWidth,
-            slotRect.height / tweetHeight,
-        );
+            const scale = Math.min(
+                1,
+                slotRect.width / tweetWidth,
+                slotRect.height / tweetHeight,
+            );
 
-        tweetElement.style.transformOrigin = "center center";
-        tweetElement.style.transform = `scale(${scale})`;
-    };
+            tweetElement.style.transformOrigin = "center center";
+            tweetElement.style.transform = `scale(${scale})`;
+        };
 
-    const renderTwitterTweet = async (index: number, retry = 0) => {
-        const twttr = (window as any).twttr;
-        const tweetId = TWITTER_TWEET_IDS[index];
-        const slot = twitterSlidesRef.current[index];
+        attemptFit(0);
+    }, []);
 
-        if (!tweetId || !slot || !twttr?.widgets?.createTweet || slot.dataset.rendered === "1") return;
+    const renderTwitterTweet = useCallback(async (index: number) => {
+        const attemptRender = async (retry: number): Promise<void> => {
+            const twttr = (window as SocialWindow).twttr;
+            const tweetId = TWITTER_TWEET_IDS[index];
+            const slot = twitterSlidesRef.current[index];
+            const createTweet = twttr?.widgets?.createTweet;
 
-        try {
-            const containerWidth = slot.parentElement?.clientWidth ?? slot.clientWidth;
-            slot.innerHTML = "";
-            const tweetElement = await twttr.widgets.createTweet(tweetId, slot, {
-                align: "center",
-                theme: "dark",
-                dnt: true,
-                conversation: "none",
-                width: Math.max(250, Math.floor(containerWidth)),
-                cards: "hidden",
-            });
-            if (tweetElement) {
-                tweetElement.style.width = "100%";
-                tweetElement.style.maxWidth = "100%";
-                fitTweetIntoSquare(slot, tweetElement);
-                window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement), 200);
-                window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement), 700);
+            if (!tweetId || !slot || !createTweet || slot.dataset.rendered === "1") return;
+
+            try {
+                const containerWidth = slot.parentElement?.clientWidth ?? slot.clientWidth;
+                slot.innerHTML = "";
+                const tweetElement = await createTweet(tweetId, slot, {
+                    align: "center",
+                    theme: "dark",
+                    dnt: true,
+                    conversation: "none",
+                    width: Math.max(250, Math.floor(containerWidth)),
+                    cards: "hidden",
+                });
+                if (tweetElement) {
+                    tweetElement.style.width = "100%";
+                    tweetElement.style.maxWidth = "100%";
+                    fitTweetIntoSquare(slot, tweetElement);
+                    window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement), 200);
+                    window.setTimeout(() => fitTweetIntoSquare(slot, tweetElement), 700);
+                }
+                slot.dataset.rendered = "1";
+            } catch {
+                if (retry < 3) {
+                    window.setTimeout(() => {
+                        void attemptRender(retry + 1);
+                    }, 900);
+                }
             }
-            slot.dataset.rendered = "1";
-        } catch {
-            if (retry < 3) {
-                window.setTimeout(() => {
-                    renderTwitterTweet(index, retry + 1);
-                }, 900);
-            }
-        }
-    };
+        };
 
-    useEffect(() => {
-        let tries = 0;
-        const maxTries = 8;
+        await attemptRender(0);
+    }, [fitTweetIntoSquare]);
 
-        const timer = window.setInterval(() => {
-            tries += 1;
-            renderTwitterTweet(twIdx);
-
-            const rendered = !!twitterSlidesRef.current[twIdx]?.dataset.rendered;
-            if (rendered || tries >= maxTries) {
-                window.clearInterval(timer);
-            }
-        }, 1000);
-
-        renderTwitterTweet(twIdx);
-
-        return () => window.clearInterval(timer);
-    }, [twIdx]);
-
-    useEffect(() => {
-        const processInstagramEmbeds = (retry = 0) => {
-            const instgrm = (window as any).instgrm;
+    const processInstagramEmbeds = useCallback(() => {
+        const attemptProcess = (retry: number) => {
+            const instgrm = (window as SocialWindow).instgrm;
             if (!instgrm?.Embeds?.process) {
                 if (retry < 6) {
-                    window.setTimeout(() => processInstagramEmbeds(retry + 1), 450);
+                    window.setTimeout(() => attemptProcess(retry + 1), 450);
                 }
                 return;
             }
@@ -191,8 +208,31 @@ export default function SocialFeed() {
             instgrm.Embeds.process();
         };
 
+        attemptProcess(0);
+    }, []);
+
+    useEffect(() => {
+        let tries = 0;
+        const maxTries = 8;
+
+        const timer = window.setInterval(() => {
+            tries += 1;
+            void renderTwitterTweet(twIdx);
+
+            const rendered = !!twitterSlidesRef.current[twIdx]?.dataset.rendered;
+            if (rendered || tries >= maxTries) {
+                window.clearInterval(timer);
+            }
+        }, 1000);
+
+        void renderTwitterTweet(twIdx);
+
+        return () => window.clearInterval(timer);
+    }, [renderTwitterTweet, twIdx]);
+
+    useEffect(() => {
         processInstagramEmbeds();
-    }, [igIdx]);
+    }, [igIdx, processInstagramEmbeds]);
 
     useEffect(() => {
         const onResize = () => {
@@ -206,7 +246,7 @@ export default function SocialFeed() {
 
         window.addEventListener("resize", onResize);
         return () => window.removeEventListener("resize", onResize);
-    }, []);
+    }, [fitTweetIntoSquare]);
 
     const goTwitter = (i: number) => setTwIdx((i + twitterTotal) % twitterTotal);
     const goInstagram = (i: number) => setIgIdx((i + instagramTotal) % instagramTotal);
@@ -364,7 +404,7 @@ export default function SocialFeed() {
                             src="https://platform.twitter.com/widgets.js"
                             strategy="afterInteractive"
                             onLoad={() => {
-                                renderTwitterTweet(twIdx);
+                                void renderTwitterTweet(twIdx);
                             }}
                         />
                     </div>
@@ -497,7 +537,7 @@ export default function SocialFeed() {
                             src="https://www.instagram.com/embed.js"
                             strategy="afterInteractive"
                             onLoad={() => {
-                                (window as any).instgrm?.Embeds.process();
+                                (window as SocialWindow).instgrm?.Embeds?.process();
                             }}
                         />
                     </div>

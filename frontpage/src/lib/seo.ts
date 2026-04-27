@@ -6,9 +6,9 @@ export const SITE_URL = "https://animecaos.xyz";
 export const SITE_NAME = "AnimeCaos";
 export const SITE_X_URL = "https://x.com/getanimecaos";
 export const SITE_X_HANDLE = "@getanimecaos";
-export const PT_HOME_TITLE = "AnimeCaos - Assistir Animes Online Gr\u00e1tis";
+export const PT_HOME_TITLE = "AnimeCaos - Assistir Animes Online Grátis";
 export const PT_HOME_DESCRIPTION =
-  "Assistir animes dublados e legendados no AnimeCaos. A melhor maneira de assistir animes gr\u00e1tis, sem anuncios, basta baixar o app e ver seus animes favoritos em hd, atualizados diariamente.";
+  "Assistir animes dublados e legendados no AnimeCaos. A melhor maneira de assistir animes grátis, sem anuncios, basta baixar o app e ver seus animes favoritos em hd, atualizados diariamente.";
 export const EN_HOME_TITLE = "AnimeCaos - Watch Anime Online for Free";
 export const EN_HOME_DESCRIPTION =
   "Watch dubbed and subtitled anime on AnimeCaos. The best ad-free way to stream anime online.";

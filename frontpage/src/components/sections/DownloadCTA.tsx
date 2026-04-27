@@ -6,6 +6,7 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { Download, Github, ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRelease } from "@/lib/release/context";
+import { localizePath } from "@/lib/locale-paths";
 
 const GITHUB_URL = "https://github.com/henriqqw/animecaos";
 const HEARTS = ["❤️", "🩷", "💕", "✨", "💖"];
@@ -74,6 +75,7 @@ export default function DownloadCTA() {
     const t = useTranslations("download");
     const release = useRelease();
     const locale = useLocale();
+    const downloadPath = localizePath(locale, "/download");
 
     return (
         <section className="section" id="download-cta">
@@ -110,7 +112,7 @@ export default function DownloadCTA() {
 
                     <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
                         <a
-                            href={`/${locale}/download`}
+                            href={downloadPath}
                             id="cta-download-btn"
                             data-umami-event="home_cta_downloads"
                             className="btn btn-primary"

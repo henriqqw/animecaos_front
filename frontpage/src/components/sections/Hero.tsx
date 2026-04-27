@@ -3,10 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { Download, Github, ArrowRight, Star } from "lucide-react";
+import { Download, Github, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import VariableProximity from "@/components/ui/VariableProximity";
 import { useRelease } from "@/lib/release/context";
+import { localizePath } from "@/lib/locale-paths";
 
 const GITHUB_URL = "https://github.com/henriqqw/animecaos";
 
@@ -32,6 +33,7 @@ type TerminalLine = {
 export default function Hero({ locale }: HeroProps) {
     const t = useTranslations("hero");
     const release = useRelease();
+    const downloadPath = localizePath(locale, "/download");
     const canvasContainerRef = useRef<HTMLDivElement | null>(null);
     const terminalLines: TerminalLine[] = useMemo(
         () => [
@@ -467,7 +469,7 @@ export default function Hero({ locale }: HeroProps) {
                         }}
                     >
                         <Link
-                            href={`/${locale}/download`}
+                            href={downloadPath}
                             id="hero-download-btn"
                             data-umami-event="hero_download_cta"
                             className="btn btn-primary"
@@ -531,7 +533,7 @@ export default function Hero({ locale }: HeroProps) {
                         custom={0.85}
                     >
                         <Link
-                            href={`/${locale}/download`}
+                            href={downloadPath}
                             style={{
                                 display: "inline-flex",
                                 alignItems: "center",
