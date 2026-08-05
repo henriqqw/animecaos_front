@@ -21,13 +21,13 @@ const parseCountValue = (raw: string): CountParts | null => {
     };
 };
 
-function CountUp({ end, prefix = "", suffix = "" }: { end: number; prefix?: string; suffix?: string }) {
+function CountUp({ end, prefix = "", suffix = "" }: { end: number | null; prefix?: string; suffix?: string }) {
     const [count, setCount] = useState(0);
     const ref = useRef<HTMLSpanElement>(null);
     const inView = useInView(ref, { once: true });
 
     useEffect(() => {
-        if (!inView) return;
+        if (!inView || end === null) return;
         if (end <= 0) return;
 
         const duration = 2100;
@@ -46,6 +46,10 @@ function CountUp({ end, prefix = "", suffix = "" }: { end: number; prefix?: stri
         frame = requestAnimationFrame(animate);
         return () => cancelAnimationFrame(frame);
     }, [inView, end]);
+
+    if (end === null) {
+        return <span ref={ref} style={{ opacity: 0.3 }}>—</span>;
+    }
 
     return <span ref={ref}>{prefix}{count}{suffix}</span>;
 }
@@ -134,11 +138,7 @@ export default function Stats() {
                                 marginBottom: "0.4rem",
                             }}
                         >
-                            {downloads === null ? (
-                                <span style={{ opacity: 0.3 }}>—</span>
-                            ) : (
-                                <CountUp end={downloads} suffix="+" />
-                            )}
+                            <CountUp end={downloads} suffix="+" />
                         </div>
                         <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
                             {t("downloads")}
