@@ -14,9 +14,9 @@ export const metadata: Metadata = buildLocalizedMetadata({
 
 async function getLatestRelease(): Promise<LatestRelease> {
   const fallback: LatestRelease = {
-    tag: "v0.1.3",
-    version: "0.1.3",
-    windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe",
+    tag: "v2.0.0",
+    version: "2.0.0",
+    windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v2.0.0/Setup_AnimeCaos_v2.0.0.exe",
     changelog: [],
   };
   try {

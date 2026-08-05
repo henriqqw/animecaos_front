@@ -4,16 +4,29 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import type { LatestRelease, DownloadsResponse, ReleaseChangelog } from "@/app/api/github-downloads/route";
 
 const FALLBACK_URL =
-  "https://github.com/henriqqw/AnimeCaos/releases/download/v0.1.3/Setup_AnimeCaos_v0.1.3.exe";
+  "https://github.com/henriqqw/AnimeCaos/releases/download/v2.0.0/Setup_AnimeCaos_v2.0.0.exe";
 
 const FALLBACK_RELEASE: LatestRelease = {
-  tag: "v0.1.3",
-  version: "0.1.3",
+  tag: "v2.0.0",
+  version: "2.0.0",
   windows_url: FALLBACK_URL,
   changelog: [],
 };
 
 const FALLBACK_CHANGELOGS: ReleaseChangelog[] = [
+  {
+    tag: "v2.0.0",
+    date: "2026-08-05T00:00:00Z",
+    items: [
+      "Minha Lista: nova página de watchlist pessoal — adicione/remova animes direto da home, da busca ou da página de detalhes",
+      "Preview ao passar o mouse (estilo Crunchyroll): hover expande card com nota, temporada, episódios e sinopse reais da AniList",
+      "Manga: navegação, busca e leitura offline de capítulos já baixados",
+      "Integração AniList completa (login, sincronização de progresso) e Discord Rich Presence",
+      "Home redesenhada: spotlight da temporada, seções 'Em Alta' e 'Temporada Atual' com scroll horizontal",
+      "Qualidade de vídeo do AnimeFire sempre escolhe a melhor resolução disponível por episódio (1080p > 720p > 360p)",
+      "Corrigida listagem de episódios incorreta em animes com muitos episódios (ex. One Piece, 1172 episódios)",
+    ],
+  },
   {
     tag: "v0.1.3",
     date: "2026-04-17T00:00:00Z",
