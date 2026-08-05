@@ -96,52 +96,52 @@ export default function Screenshots() {
     const items = [
         {
             title: "AnimeCaos - Home",
-            src: "/home.webp",
+            src: "/screenshots/home.webp",
             alt: "AnimeCaos - tela principal do app",
-            width: 1919,
-            height: 1018,
+            width: 1599,
+            height: 862,
         },
         {
-            title: "AnimeCaos - Pesquisar",
-            src: "/pesquisar.webp",
-            alt: "AnimeCaos - busca de animes",
-            width: 1919,
-            height: 1017,
-        },
-        {
-            title: "AnimeCaos - Resultados",
-            src: "/pesquisado.webp",
+            title: "AnimeCaos - Busca",
+            src: "/screenshots/busca.webp",
             alt: "AnimeCaos - resultados da busca",
-            width: 1919,
-            height: 1013,
+            width: 1599,
+            height: 861,
         },
         {
-            title: "AnimeCaos - Episodios",
-            src: "/anime_eps.webp",
-            alt: "AnimeCaos - lista de episodios",
-            width: 1919,
-            height: 1020,
+            title: "AnimeCaos - Detalhes",
+            src: "/screenshots/detalhes.webp",
+            alt: "AnimeCaos - pagina de detalhes e episodios",
+            width: 1599,
+            height: 860,
         },
         {
             title: "AnimeCaos - Player",
-            src: "/screenshot.webp",
+            src: "/screenshots/player.webp",
             alt: "AnimeCaos - player integrado",
-            width: 1444,
-            height: 873,
+            width: 1599,
+            height: 865,
+        },
+        {
+            title: "AnimeCaos - Minha Lista",
+            src: "/screenshots/lista.webp",
+            alt: "AnimeCaos - watchlist de animes",
+            width: 1599,
+            height: 859,
         },
         {
             title: "AnimeCaos - Downloads",
-            src: "/downloads.webp",
+            src: "/screenshots/downloads.webp",
             alt: "AnimeCaos - downloads offline",
-            width: 1919,
-            height: 1015,
+            width: 1599,
+            height: 858,
         },
         {
-            title: "AnimeCaos - AniList",
-            src: "/anilist.webp",
-            alt: "AnimeCaos - integracao com AniList",
-            width: 1919,
-            height: 1019,
+            title: "AnimeCaos - Conta",
+            src: "/screenshots/conta.webp",
+            alt: "AnimeCaos - integracao com AniList e Discord",
+            width: 1599,
+            height: 858,
         },
     ];
 
@@ -221,7 +221,7 @@ export default function Screenshots() {
                                             }}
                                         >
                                             <MacOSWindow title={item.title}>
-                                                <div style={{ position: "relative", width: "100%", aspectRatio: "1919/1018", overflow: "hidden" }}>
+                                                <div style={{ position: "relative", width: "100%", aspectRatio: "1599/860", overflow: "hidden" }}>
                                                     <Image
                                                         src={item.src}
                                                         alt={item.alt}
