@@ -8,12 +8,10 @@ import { useRelease } from "@/lib/release/context";
 
 const GITHUB_REPO = "https://github.com/henriqqw/AnimeCaos";
 
-const LINUX_BUILD = `git clone https://github.com/henriqqw/AnimeCaos.git
-cd AnimeCaos
-chmod +x build-flatpak.sh
-./build-flatpak.sh`;
-
-const LINUX_RUN = `flatpak run com.animecaos.App`;
+const LINUX_DOWNLOAD_URL =
+    "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-x86_64.AppImage";
+const LINUX_RUN = `chmod +x AnimeCaos-3.0.0-x86_64.AppImage
+./AnimeCaos-3.0.0-x86_64.AppImage`;
 
 const MAC_INSTALL = `git clone https://github.com/henriqqw/animecaos.git
 cd animecaos
@@ -232,26 +230,32 @@ export default function DownloadContent() {
 
                         {/* Spec pills */}
                         <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
-                            {["Ubuntu · Fedora · Arch", "Flatpak"].map(s => (
+                            {["Linux x86_64", "AppImage"].map(s => (
                                 <span key={s} style={PILL_STYLE}>{s}</span>
                             ))}
                         </div>
 
-                        {/* Commands */}
+                        {/* Run instructions */}
                         <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                            <CodeSection label={t("linux_build_label")} code={LINUX_BUILD}>
-                                <div><span className="cmd">git</span>{" clone https://github.com/henriqqw/AnimeCaos.git"}</div>
-                                <div><span className="cmd">cd</span>{" AnimeCaos"}</div>
-                                <div><span className="cmd">chmod</span>{" +x build-flatpak.sh"}</div>
-                                <div><span className="cmd">{"./build-flatpak.sh"}</span></div>
-                            </CodeSection>
                             <CodeSection label={t("linux_run_label")} code={LINUX_RUN}>
-                                <div><span className="cmd">flatpak</span>{" run com.animecaos.App"}</div>
+                                <div><span className="cmd">chmod</span>{" +x AnimeCaos-3.0.0-x86_64.AppImage"}</div>
+                                <div><span className="cmd">{"./AnimeCaos-3.0.0-x86_64.AppImage"}</span></div>
                             </CodeSection>
                         </div>
 
                         {/* CTA */}
                         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                            <a
+                                href={release.linux_url ?? LINUX_DOWNLOAD_URL}
+                                id="download-appimage-btn"
+                                data-umami-event="download_click"
+                                data-umami-event-channel="download_page"
+                                className="btn btn-primary"
+                                style={{ justifyContent: "center", padding: "0.9rem 1.5rem" }}
+                            >
+                                <Download size={18} />
+                                {t("linux_btn")}
+                            </a>
                             <ReqBox text={t("linux_note")} />
                             <a
                                 href={GITHUB_REPO}

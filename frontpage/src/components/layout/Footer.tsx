@@ -51,19 +51,18 @@ export default function Footer({ locale }: FooterProps) {
                 >
                     {/* Brand */}
                     <div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", marginBottom: "0.75rem" }}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/icon.png" alt="AnimeCaos" width={28} height={28} style={{ borderRadius: 6 }} />
-                            <span style={{ fontWeight: 800, fontSize: "1rem" }}>AnimeCaos</span>
+                            <img src="/wordmark.png" alt="AnimeCaos" className="footer-wordmark" width={1040} height={544} />
                         </div>
-                        <p style={{ fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.6, maxWidth: 220 }}>
+                        <p style={{ fontSize: "0.95rem", color: "var(--text-muted)", lineHeight: 1.6, maxWidth: 240 }}>
                             {t("rights")}
                         </p>
                     </div>
 
                     {/* Nav links */}
                     <div>
-                        <p style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-subtle)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>
+                        <p style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-subtle)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>
                             Pages
                         </p>
                         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -83,7 +82,7 @@ export default function Footer({ locale }: FooterProps) {
 
                     {/* Social */}
                     <div>
-                        <p style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-subtle)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>
+                        <p style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-subtle)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>
                             Links
                         </p>
                         <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
@@ -141,14 +140,14 @@ export default function Footer({ locale }: FooterProps) {
                         marginTop: "1.5rem",
                     }}
                 >
-                    <p style={{ fontSize: "0.78rem", color: "var(--text-subtle)" }}>
+                    <p style={{ fontSize: "0.9rem", color: "var(--text-subtle)" }}>
                         {t("made")}{" "}
                         <a href="https://caosdev.vercel.app" target="_blank" rel="noopener noreferrer"
                             style={{ color: "var(--accent)", textDecoration: "none" }}>
                             caosdev
                         </a>
                     </p>
-                    <p style={{ fontSize: "0.72rem", color: "var(--text-subtle)", maxWidth: 500, textAlign: "right", lineHeight: 1.4 }}>
+                    <p style={{ fontSize: "0.84rem", color: "var(--text-subtle)", maxWidth: 500, textAlign: "right", lineHeight: 1.4 }}>
                         {t("disclaimer")}
                     </p>
                 </div>

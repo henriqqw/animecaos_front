@@ -12,7 +12,7 @@ function buildOrganizationJsonLd() {
         "@id": "https://animecaos.xyz/#organization",
         name: "AnimeCaos",
         url: "https://animecaos.xyz",
-        logo: "https://animecaos.xyz/icon.png",
+        logo: "https://animecaos.xyz/wordmark.png",
         sameAs: [
           "https://github.com/henriqqw/animecaos",
           "https://x.com/getanimecaos",

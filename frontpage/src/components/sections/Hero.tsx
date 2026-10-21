@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Download, Github, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import VariableProximity from "@/components/ui/VariableProximity";
+import PixelWindow from "@/components/ui/PixelWindow";
 import { useRelease } from "@/lib/release/context";
 import { localizePath } from "@/lib/locale-paths";
 
@@ -291,6 +292,7 @@ export default function Hero({ locale }: HeroProps) {
     return (
         <section
             id="hero"
+            className="hero-section"
             style={{
                 position: "relative",
                 zIndex: 1,
@@ -298,13 +300,9 @@ export default function Hero({ locale }: HeroProps) {
                 minHeight: "100dvh",
                 display: "flex",
                 alignItems: "center",
-                paddingTop: "5rem",
-                paddingBottom: "5rem",
+                paddingTop: "var(--hero-padding-top, 5rem)",
+                paddingBottom: "var(--hero-padding-bottom, 5rem)",
                 overflow: "hidden",
-                backgroundImage: "url('/hero.webp')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
                 WebkitMaskImage:
                     "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 76%, rgba(0,0,0,0.92) 84%, rgba(0,0,0,0.65) 92%, rgba(0,0,0,0) 100%)",
                 maskImage:
@@ -313,12 +311,11 @@ export default function Hero({ locale }: HeroProps) {
         >
             <div
                 aria-hidden="true"
+                className="hero-background-overlay"
                 style={{
                     position: "absolute",
                     inset: 0,
                     zIndex: 0,
-                    background:
-                        "radial-gradient(ellipse at center, rgba(6,8,12,0.45) 0%, rgba(6,8,12,0.7) 55%, rgba(6,8,12,0.86) 100%), linear-gradient(180deg, rgba(6,8,12,0.6) 0%, rgba(6,8,12,0.75) 100%)",
                     pointerEvents: "none",
                 }}
             />
@@ -371,12 +368,13 @@ export default function Hero({ locale }: HeroProps) {
 
             <div className="container" style={{ position: "relative", zIndex: 4 }}>
                 <div
+                    className="hero-content"
                     style={{
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         textAlign: "center",
-                        gap: "2rem",
+                        gap: "var(--hero-content-gap, 2rem)",
                         maxWidth: 860,
                         margin: "0 auto",
                     }}
@@ -408,8 +406,8 @@ export default function Hero({ locale }: HeroProps) {
                             <VariableProximity
                                 label={headline1}
                                 className="hero-variable-line hero-variable-line-main"
-                                fromFontVariationSettings="'wght' 760, 'opsz' 20"
-                                toFontVariationSettings="'wght' 980, 'opsz' 48"
+                                fromFontVariationSettings="'wght' 500"
+                                toFontVariationSettings="'wght' 700"
                                 containerRef={variableProximityContainerRef}
                                 radius={120}
                                 falloff="linear"
@@ -417,8 +415,8 @@ export default function Hero({ locale }: HeroProps) {
                             <VariableProximity
                                 label={headline2}
                                 className="hero-variable-line hero-variable-line-accent"
-                                fromFontVariationSettings="'wght' 760, 'opsz' 20"
-                                toFontVariationSettings="'wght' 1000, 'opsz' 52"
+                                fromFontVariationSettings="'wght' 500"
+                                toFontVariationSettings="'wght' 700"
                                 containerRef={variableProximityContainerRef}
                                 radius={120}
                                 falloff="linear"
@@ -427,8 +425,8 @@ export default function Hero({ locale }: HeroProps) {
                                 <VariableProximity
                                     label={headline3}
                                     className="hero-variable-line hero-variable-line-main"
-                                    fromFontVariationSettings="'wght' 760, 'opsz' 20"
-                                    toFontVariationSettings="'wght' 980, 'opsz' 48"
+                                    fromFontVariationSettings="'wght' 500"
+                                    toFontVariationSettings="'wght' 700"
                                     containerRef={variableProximityContainerRef}
                                     radius={120}
                                     falloff="linear"
@@ -446,7 +444,7 @@ export default function Hero({ locale }: HeroProps) {
                         style={{
                             fontSize: "clamp(1rem, 2vw, 1.2rem)",
                             color: "rgba(240, 245, 255, 0.9)",
-                            maxWidth: 580,
+                            maxWidth: "var(--hero-sub-max-width, 580px)",
                             lineHeight: 1.65,
                             textShadow: "0 6px 20px rgba(0,0,0,0.5)",
                         }}
@@ -556,122 +554,33 @@ export default function Hero({ locale }: HeroProps) {
                         initial="hidden"
                         animate="visible"
                         custom={1}
-                        style={{ width: "100%", maxWidth: 800, marginTop: "1rem" }}
+                        style={{ width: "100%", maxWidth: "var(--hero-window-max-width, 800px)", marginTop: "var(--hero-window-margin-top, 1rem)" }}
                     >
                         {terminalWindowVisible ? (
-                            <div
-                                className="liquid-glass"
-                                style={{
-                                    padding: "1.5rem",
-                                    borderRadius: "var(--radius-xl)",
-                                    overflow: "hidden",
-                                }}
+                            <PixelWindow
+                                title="AnimeCaos - Console"
+                                minimized={terminalWindowMinimized}
+                                onMinimize={() => setTerminalWindowMinimized((prev) => !prev)}
+                                onClose={() => setTerminalWindowVisible(false)}
                             >
-                                {/* Fake terminal / app preview */}
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        gap: "0.35rem",
-                                        marginBottom: "1.2rem",
-                                    }}
-                                >
-                                    <div style={{ display: "flex", gap: "0.4rem" }}>
-                                        {["#ff5f56", "#ffbd2e", "#27c93f"].map((c) => (
-                                            <span
-                                                key={c}
-                                                aria-hidden="true"
-                                                style={{
-                                                    width: 12,
-                                                    height: 12,
-                                                    borderRadius: "50%",
-                                                    background: c,
-                                                    boxShadow: `0 0 6px ${c}55`,
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
-
-                                    <div style={{ display: "flex", gap: "0.35rem" }}>
-                                    <button
-                                        type="button"
-                                        aria-label="Minimizar janela"
-                                        onClick={() => setTerminalWindowMinimized((prev) => !prev)}
-                                        style={{
-                                            width: 22,
-                                            height: 18,
-                                            borderRadius: 6,
-                                            background: "rgba(255,255,255,0.06)",
-                                            border: "1px solid rgba(255,255,255,0.1)",
-                                            cursor: "pointer",
-                                            display: "inline-flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            color: "rgba(240,242,245,0.88)",
-                                            fontSize: 12,
-                                            fontWeight: 700,
-                                            lineHeight: 1,
-                                        }}
-                                    >
-                                        -
-                                    </button>
-                                    <button
-                                        type="button"
-                                        aria-label="Fechar janela"
-                                        onClick={() => setTerminalWindowVisible(false)}
-                                        style={{
-                                            width: 22,
-                                            height: 18,
-                                            borderRadius: 6,
-                                            background: "rgba(255,95,86,0.18)",
-                                            border: "1px solid rgba(255,95,86,0.42)",
-                                            cursor: "pointer",
-                                            display: "inline-flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            color: "rgba(255,210,210,0.95)",
-                                            fontSize: 11,
-                                            fontWeight: 700,
-                                            lineHeight: 1,
-                                        }}
-                                    >
-                                        x
-                                    </button>
-                                    </div>
+                                <div className="code-block" style={{ textAlign: "left" }}>
+                                    {terminalLines.map((line, i) => (
+                                        <div
+                                            key={`${line.text}-${i}`}
+                                            style={{
+                                                color: line.color,
+                                                marginTop: line.marginTop,
+                                                minHeight: "1.7em",
+                                            }}
+                                        >
+                                            {i === 0 ? <span className="comment">{typedLines[i]}</span> : typedLines[i]}
+                                            {i === activeTypingLine && showCursor ? (
+                                                <span className="cmd" style={{ marginLeft: 2 }}>|</span>
+                                            ) : null}
+                                        </div>
+                                    ))}
                                 </div>
-                                {!terminalWindowMinimized ? (
-                                    <div
-                                        className="code-block"
-                                        style={{ textAlign: "left", background: "rgba(0,0,0,0.6)", borderRadius: 10 }}
-                                    >
-                                        {terminalLines.map((line, i) => (
-                                            <div
-                                                key={`${line.text}-${i}`}
-                                                style={{
-                                                    color: line.color,
-                                                    marginTop: line.marginTop,
-                                                    minHeight: "1.7em",
-                                                }}
-                                            >
-                                                {i === 0 ? <span className="comment">{typedLines[i]}</span> : typedLines[i]}
-                                                {i === activeTypingLine && showCursor ? (
-                                                    <span className="cmd" style={{ marginLeft: 2 }}>|</span>
-                                                ) : null}
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div
-                                        style={{
-                                            height: 16,
-                                            borderRadius: 8,
-                                            background: "rgba(255,255,255,0.08)",
-                                            border: "1px solid rgba(255,255,255,0.1)",
-                                        }}
-                                    />
-                                )}
-                            </div>
+                            </PixelWindow>
                         ) : (
                             <button
                                 type="button"

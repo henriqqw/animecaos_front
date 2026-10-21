@@ -2,159 +2,147 @@
 
 import { motion } from "framer-motion";
 import {
-    Code2, Globe, Cpu, Search, Play, Package,
-    GitBranch, ExternalLink
+    ArrowUpRight,
+    BookOpen,
+    Code2,
+    Download,
+    Github,
+    MonitorPlay,
+    Music2,
+    PackageCheck,
+    Radio,
+    ShieldCheck,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import ChangelogSection from "@/components/sections/ChangelogSection";
 
-const TECH = [
-    { icon: Cpu, name: "Python 3.10+", desc: "Core language" },
-    { icon: Globe, name: "Selenium", desc: "Web automation & Cloudflare bypass" },
-    { icon: Code2, name: "BeautifulSoup", desc: "HTML parsing" },
-    { icon: Search, name: "FuzzyWuzzy", desc: "Fuzzy search / typo tolerance" },
-    { icon: Play, name: "yt-dlp + mpv", desc: "Stream extraction & playback" },
-    { icon: Package, name: "PySide6", desc: "Desktop GUI framework" },
-    { icon: GitBranch, name: "AniList GraphQL", desc: "Metadata & cover art API" },
-    { icon: Package, name: "PyInstaller", desc: "Standalone .exe distribution" },
+const STACK = [
+    { icon: Code2, name: "Go", detailKey: "stack_go" },
+    { icon: MonitorPlay, name: "Wails 2", detailKey: "stack_wails" },
+    { icon: Code2, name: "React + TypeScript", detailKey: "stack_frontend" },
+    { icon: Music2, name: "MPV + FFmpeg", detailKey: "stack_media" },
+];
+
+const CAPABILITIES = [
+    { icon: MonitorPlay, titleKey: "anime_title", descKey: "anime_desc", index: "01" },
+    { icon: BookOpen, titleKey: "manga_title", descKey: "manga_desc", index: "02" },
+    { icon: Radio, titleKey: "integrations_title", descKey: "integrations_desc", index: "03" },
+    { icon: PackageCheck, titleKey: "distribution_title", descKey: "distribution_desc", index: "04" },
 ];
 
 export default function AboutContent() {
     const t = useTranslations("about");
 
     return (
-        <div
-            style={{
-                position: "relative",
-                zIndex: 1,
-                paddingTop: "8rem",
-                paddingBottom: "6rem",
-            }}
-        >
-            <div className="container">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
+        <main className="about-page">
+            <div className="container about-container">
+                <motion.section
+                    className="about-hero"
+                    initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    style={{ maxWidth: 760, marginBottom: "4rem" }}
+                    transition={{ duration: 0.45 }}
+                    aria-labelledby="about-title"
                 >
-                    <div className="badge" style={{ marginBottom: "1.25rem" }}>
-                        <GitBranch size={11} />
-                        open source
+                    <div className="about-hero-copy">
+                        <span className="about-kicker"><span /> {t("eyebrow")}</span>
+                        <h1 id="about-title" className="about-title">{t("title")}</h1>
+                        <p className="about-lead">{t("p1")}</p>
+                        <p className="about-body">{t("p2")}</p>
+                        <div className="about-hero-actions">
+                            <a className="btn btn-primary" href="https://github.com/henriqqw/AnimeCaos/releases/tag/v3.0.0" target="_blank" rel="noopener noreferrer">
+                                <Download size={16} /> {t("release_btn")}
+                            </a>
+                            <a className="btn btn-ghost" href="https://github.com/henriqqw/AnimeCaos" target="_blank" rel="noopener noreferrer">
+                                <Github size={16} /> GitHub <ArrowUpRight size={14} />
+                            </a>
+                        </div>
                     </div>
-                    <h1 className="heading-lg" style={{ marginBottom: "1.75rem" }}>
-                        {t("title")}
-                    </h1>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}>
-                        {["p1", "p2", "p3"].map((key) => (
-                            <p key={key} style={{ color: "var(--text-muted)", fontSize: "1.05rem", lineHeight: 1.75 }}>
-                                {t(key as "p1" | "p2" | "p3")}
-                            </p>
-                        ))}
-                    </div>
-                </motion.div>
 
-                {/* Tech stack */}
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    style={{ marginBottom: "4rem" }}
-                >
-                    <h2
-                        style={{
-                            fontSize: "0.75rem",
-                            fontWeight: 700,
-                            color: "var(--text-subtle)",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.12em",
-                            marginBottom: "1.5rem",
-                        }}
-                    >
-                        {t("tech_title")}
-                    </h2>
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-                            gap: "1px",
-                            border: "1px solid var(--border)",
-                            borderRadius: "var(--radius-lg)",
-                            overflow: "hidden",
-                        }}
-                    >
-                        {TECH.map(({ icon: Icon, name, desc }, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.06 }}
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "0.85rem",
-                                    padding: "1rem 1.25rem",
-                                    background: "var(--bg-2)",
-                                    transition: "background 0.2s",
-                                }}
-                                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--surface-hover)")}
-                                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--bg-2)")}
+                    <div className="about-build-card" aria-label={t("release_card_label")}>
+                        <div className="about-build-titlebar">
+                            <span className="about-build-dot" />
+                            <span>{t("release_card_label")}</span>
+                            <span className="about-build-version">v3.0.0</span>
+                        </div>
+                        <div className="about-build-body">
+                            <p className="about-build-caption">{t("runtime_label")}</p>
+                            <strong>Go <span>+</span> Wails 2</strong>
+                            <div className="about-build-divider" />
+                            <p className="about-build-caption">{t("interface_label")}</p>
+                            <strong>React <span>+</span> TypeScript</strong>
+                            <div className="about-build-status"><ShieldCheck size={15} /> {t("legacy_note")}</div>
+                        </div>
+                    </div>
+                </motion.section>
+
+                <section className="about-stack-section" aria-labelledby="about-stack-title">
+                    <div className="about-section-heading">
+                        <span className="about-section-index">// 01</span>
+                        <h2 id="about-stack-title">{t("tech_title")}</h2>
+                    </div>
+                    <div className="about-stack-grid">
+                        {STACK.map(({ icon: Icon, name, detailKey }, i) => (
+                            <motion.article
+                                className="about-stack-card"
+                                key={name}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ duration: 0.3, delay: i * 0.05 }}
                             >
-                                <div className="feature-icon" style={{ width: 36, height: 36, margin: 0, flexShrink: 0 }}>
-                                    <Icon size={16} />
-                                </div>
-                                <div>
-                                    <p style={{ fontWeight: 600, fontSize: "0.9rem" }}>{name}</p>
-                                    <p style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>{desc}</p>
-                                </div>
-                            </motion.div>
+                                <span className="about-card-icon"><Icon size={19} strokeWidth={1.8} /></span>
+                                <span className="about-card-copy">
+                                    <strong>{name}</strong>
+                                    <small>{t(detailKey as "stack_go" | "stack_wails" | "stack_frontend" | "stack_media")}</small>
+                                </span>
+                            </motion.article>
                         ))}
                     </div>
-                </motion.div>
+                </section>
 
-                {/* Changelog */}
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    style={{ marginBottom: "4rem" }}
-                >
-                    <ChangelogSection />
-                </motion.div>
-
-                {/* Open source */}
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="liquid-glass"
-                    style={{ padding: "2rem 2.5rem", display: "flex", gap: "2rem", alignItems: "flex-start", flexWrap: "wrap" }}
-                >
-                    <div style={{ flex: 1, minWidth: 260 }}>
-                        <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: "0.75rem" }}>
-                            {t("open_title")}
-                        </h3>
-                        <p style={{ color: "var(--text-muted)", lineHeight: 1.7, fontSize: "0.95rem" }}>
-                            {t("open_desc")}
-                        </p>
+                <section className="about-capabilities-section" aria-labelledby="about-capabilities-title">
+                    <div className="about-section-heading">
+                        <span className="about-section-index">// 02</span>
+                        <h2 id="about-capabilities-title">{t("features_title")}</h2>
                     </div>
-                    <a
-                        href="https://github.com/henriqqw/animecaos"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-ghost"
-                        style={{ flexShrink: 0, alignSelf: "flex-start" }}
-                    >
-                        Ver Repositório
-                        <ExternalLink size={14} />
+                    <div className="about-capability-grid">
+                        {CAPABILITIES.map(({ icon: Icon, titleKey, descKey, index }, i) => (
+                            <motion.article
+                                className="about-capability-card"
+                                key={titleKey}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ duration: 0.3, delay: i * 0.05 }}
+                            >
+                                <div className="about-capability-top">
+                                    <span className="about-card-icon"><Icon size={19} strokeWidth={1.8} /></span>
+                                    <span className="about-capability-index">{index}</span>
+                                </div>
+                                <h3>{t(titleKey as "anime_title" | "manga_title" | "integrations_title" | "distribution_title")}</h3>
+                                <p>{t(descKey as "anime_desc" | "manga_desc" | "integrations_desc" | "distribution_desc")}</p>
+                            </motion.article>
+                        ))}
+                    </div>
+                </section>
+
+                <motion.section
+                    className="about-open-source"
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35 }}
+                >
+                    <div className="about-open-icon"><Github size={22} /></div>
+                    <div className="about-open-copy">
+                        <span className="about-section-index">// 03 · OPEN SOURCE</span>
+                        <h2>{t("open_title")}</h2>
+                        <p>{t("open_desc")}</p>
+                    </div>
+                    <a className="about-open-link" href="https://github.com/henriqqw/AnimeCaos" target="_blank" rel="noopener noreferrer" aria-label={t("repo_link_label")}>
+                        <ArrowUpRight size={19} />
                     </a>
-                </motion.div>
+                </motion.section>
             </div>
-        </div>
+        </main>
     );
 }

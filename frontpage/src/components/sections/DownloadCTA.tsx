@@ -60,10 +60,10 @@ function ChibiPet() {
             ))}
 
             <Image
-                src="/frieren_footer.webp"
+                src="/animecaos-chibi.webp"
                 alt=""
-                width={260}
-                height={380}
+                width={1254}
+                height={1254}
                 className="chibi-img"
                 draggable={false}
             />
@@ -97,6 +97,8 @@ export default function DownloadCTA() {
                         gap: "1.5rem",
                     }}
                 >
+                    <div className="download-cta-backdrop" aria-hidden="true" />
+
                     <div className="badge">
                         <Download size={11} />
                         {t("version")} {release.tag}
@@ -106,7 +108,14 @@ export default function DownloadCTA() {
                         {t("title")}
                     </h2>
 
-                    <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: 460 }}>
+                    <p
+                        style={{
+                            color: "rgba(244, 237, 223, 0.94)",
+                            fontSize: "1.05rem",
+                            maxWidth: 460,
+                            textShadow: "0 2px 8px rgba(0, 0, 0, 0.9)",
+                        }}
+                    >
                         {t("cta_sub")}
                     </p>
 
@@ -134,8 +143,7 @@ export default function DownloadCTA() {
                         </a>
                     </div>
 
-                    {/* zero-size anchor so chibi doesn't affect card layout */}
-                    <div style={{ position: "absolute", bottom: 0, right: 0, width: 0, height: 0, overflow: "visible" }} aria-hidden="true">
+                    <div className="download-cta-mascot-layer" aria-hidden="true">
                         <ChibiPet />
                     </div>
                 </motion.div>

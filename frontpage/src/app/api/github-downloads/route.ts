@@ -20,6 +20,7 @@ export interface LatestRelease {
   tag: string;
   version: string;
   windows_url: string | null;
+  linux_url: string | null;
   changelog: string[];
 }
 
@@ -89,10 +90,12 @@ export async function GET() {
       }
       if (!data.latest) {
         const exe = rel.assets.find((a) => a.name.endsWith(".exe"));
+        const appImage = rel.assets.find((a) => a.name.toLowerCase().endsWith(".appimage"));
         data.latest = {
           tag: rel.tag_name,
           version: rel.tag_name.replace(/^v/, ""),
           windows_url: exe?.browser_download_url ?? null,
+          linux_url: appImage?.browser_download_url ?? null,
           changelog: items,
         };
       }

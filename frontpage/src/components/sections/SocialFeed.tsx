@@ -6,17 +6,17 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const TWITTER_POSTS: string[] = [
-    "https://x.com/getanimecaos/status/2045256971670970830",
+    "https://x.com/getanimecaos/status/2112763834502926785",
     "https://x.com/getanimecaos/status/2046959792153932043",
-    "https://x.com/getanimecaos/status/2033693067526525116",
+    "https://x.com/getanimecaos/status/2045256971670970830",
     "https://x.com/getanimecaos/status/2033694315550040305",
+    "https://x.com/getanimecaos/status/2033693067526525116",
     "https://x.com/getanimecaos/status/2033691655862165784",
 ];
 
 const INSTAGRAM_POSTS: string[] = [
-    "https://www.instagram.com/p/DXjebsigEaa/?img_index=1",
-    "https://www.instagram.com/p/DXPR1S7gG80/",
-    "https://www.instagram.com/p/DWB6SXBjVMQ/",
+    "https://www.instagram.com/getanimecaos/p/DeuSNWRG_zG/",
+    "https://www.instagram.com/getanimecaos/p/Der7cJcGQhj/",
 ];
 
 const TWITTER_TWEET_IDS: string[] = TWITTER_POSTS
@@ -61,10 +61,10 @@ const BTN: React.CSSProperties = {
     justifyContent: "center",
     width: 28,
     height: 28,
-    borderRadius: "50%",
-    border: "1px solid rgba(255,255,255,0.12)",
-    background: "rgba(255,255,255,0.05)",
-    color: "var(--text-muted)",
+    borderRadius: 0,
+    border: "1px solid rgba(255,34,34,0.35)",
+    background: "#101318",
+    color: "var(--text)",
     cursor: "pointer",
     transition: "all 0.2s",
 };
@@ -73,15 +73,15 @@ const applyNavBtnHover = (button: HTMLButtonElement) => {
     button.style.background = "var(--accent)";
     button.style.borderColor = "var(--accent)";
     button.style.color = "#fff";
-    button.style.transform = "translateY(-1px) scale(1.03)";
-    button.style.boxShadow = "0 8px 18px rgba(255,34,34,0.28)";
+    button.style.transform = "translate(-1px, -1px)";
+    button.style.boxShadow = "2px 2px 0 rgba(110, 12, 18, 0.8)";
 };
 
 const resetNavBtnHover = (button: HTMLButtonElement) => {
-    button.style.background = "rgba(255,255,255,0.05)";
-    button.style.borderColor = "rgba(255,255,255,0.12)";
-    button.style.color = "var(--text-muted)";
-    button.style.transform = "translateY(0) scale(1)";
+    button.style.background = "#101318";
+    button.style.borderColor = "rgba(255,34,34,0.35)";
+    button.style.color = "var(--text)";
+    button.style.transform = "translate(0, 0)";
     button.style.boxShadow = "none";
 };
 
@@ -89,22 +89,24 @@ const SOCIAL_ICON_LINK: React.CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: 22,
-    height: 22,
-    borderRadius: "50%",
+    width: 30,
+    height: 30,
+    border: "none",
+    background: "transparent",
     color: "var(--text-muted)",
     textDecoration: "none",
-    transition: "color 0.2s ease, background-color 0.2s ease, transform 0.2s ease",
+    transition: "color 0.2s ease, transform 0.2s ease",
 };
 
 const SOCIAL_TEXT_LINK: React.CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
     gap: "0.25rem",
-    fontSize: "0.8rem",
+    fontFamily: "var(--font-display)",
+    fontSize: "clamp(0.86rem, 1vw, 1rem)",
     fontWeight: 600,
     color: "var(--text-muted)",
-    letterSpacing: "0.05em",
+    letterSpacing: "0.02em",
     textDecoration: "none",
     transition: "color 0.2s ease, opacity 0.2s ease",
 };
@@ -113,9 +115,9 @@ const VIEWPORT: React.CSSProperties = {
     flex: 1,
     position: "relative",
     overflow: "hidden",
-    borderRadius: 14,
-    border: "1px solid rgba(255,255,255,0.08)",
-    background: "linear-gradient(180deg, rgba(12,18,28,0.66) 0%, rgba(10,14,22,0.38) 100%)",
+    borderRadius: 0,
+    border: "1px solid rgba(244,237,223,0.16)",
+    background: "#070a0e",
 };
 
 export default function SocialFeed() {
@@ -267,7 +269,7 @@ export default function SocialFeed() {
                 </div>
 
                 <div className="social-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
-                    <div className="glass" style={{ borderRadius: "var(--radius-lg)", padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
+                    <div className="pixel-social-card" style={{ padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", flexShrink: 0 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", minWidth: 0 }}>
                                 <a
@@ -277,17 +279,15 @@ export default function SocialFeed() {
                                     aria-label="Abrir perfil no X"
                                     style={SOCIAL_ICON_LINK}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.color = "var(--text)";
-                                        e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)";
-                                        e.currentTarget.style.transform = "translateY(-1px)";
+                                        e.currentTarget.style.color = "var(--accent)";
+                                        e.currentTarget.style.transform = "scale(1.08)";
                                     }}
                                     onMouseLeave={(e) => {
                                         e.currentTarget.style.color = "var(--text-muted)";
-                                        e.currentTarget.style.backgroundColor = "transparent";
-                                        e.currentTarget.style.transform = "translateY(0)";
+                                        e.currentTarget.style.transform = "scale(1)";
                                     }}
                                 >
-                                    <Twitter size={16} />
+                                    <Twitter size={23} strokeWidth={2} />
                                 </a>
                                 <a
                                     href={`https://x.com/${TWITTER_HANDLE}`}
@@ -388,8 +388,8 @@ export default function SocialFeed() {
                                         style={{
                                             width: i === twIdx ? 18 : 6,
                                             height: 6,
-                                            borderRadius: 100,
-                                            background: i === twIdx ? "var(--accent)" : "rgba(255,255,255,0.18)",
+                                            borderRadius: 0,
+                                            background: i === twIdx ? "var(--accent)" : "rgba(244,237,223,0.24)",
                                             border: "none",
                                             cursor: "pointer",
                                             padding: 0,
@@ -409,7 +409,7 @@ export default function SocialFeed() {
                         />
                     </div>
 
-                    <div className="glass" style={{ borderRadius: "var(--radius-lg)", padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
+                    <div className="pixel-social-card" style={{ padding: "1.25rem", height: CARD_H, display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", flexShrink: 0 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", minWidth: 0 }}>
                                 <a
@@ -419,17 +419,15 @@ export default function SocialFeed() {
                                     aria-label="Abrir perfil no Instagram"
                                     style={SOCIAL_ICON_LINK}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.color = "var(--text)";
-                                        e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)";
-                                        e.currentTarget.style.transform = "translateY(-1px)";
+                                        e.currentTarget.style.color = "var(--accent)";
+                                        e.currentTarget.style.transform = "scale(1.08)";
                                     }}
                                     onMouseLeave={(e) => {
                                         e.currentTarget.style.color = "var(--text-muted)";
-                                        e.currentTarget.style.backgroundColor = "transparent";
-                                        e.currentTarget.style.transform = "translateY(0)";
+                                        e.currentTarget.style.transform = "scale(1)";
                                     }}
                                 >
-                                    <Instagram size={16} />
+                                    <Instagram size={23} strokeWidth={2} />
                                 </a>
                                 <a
                                     href={`https://instagram.com/${INSTAGRAM_HANDLE}`}
@@ -521,8 +519,8 @@ export default function SocialFeed() {
                                         style={{
                                             width: i === igIdx ? 18 : 6,
                                             height: 6,
-                                            borderRadius: 100,
-                                            background: i === igIdx ? "var(--accent)" : "rgba(255,255,255,0.18)",
+                                            borderRadius: 0,
+                                            background: i === igIdx ? "var(--accent)" : "rgba(244,237,223,0.24)",
                                             border: "none",
                                             cursor: "pointer",
                                             padding: 0,

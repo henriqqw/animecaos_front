@@ -26,23 +26,12 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://animecaos.xyz/icon.png"
-          width={110}
-          height={110}
-          style={{ borderRadius: "22px", marginBottom: "28px" }}
+          src="https://animecaos.xyz/wordmark.png"
+          width={360}
+          height={180}
+          style={{ marginBottom: "34px" }}
           alt=""
         />
-        <div
-          style={{
-            fontSize: "72px",
-            fontWeight: "bold",
-            color: "#ffffff",
-            letterSpacing: "-2px",
-            marginBottom: "18px",
-          }}
-        >
-          AnimeCaos
-        </div>
         <div
           style={{
             fontSize: "30px",

@@ -94,6 +94,7 @@ export default function Stats() {
                         >
                             <div
                                 style={{
+                                    fontFamily: "var(--font-display)",
                                     fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
                                     fontWeight: 900,
                                     letterSpacing: "-0.04em",
@@ -114,7 +115,7 @@ export default function Stats() {
                                     );
                                 })()}
                             </div>
-                            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                            <p style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
                                 {item.label}
                             </p>
                         </motion.div>
@@ -130,6 +131,7 @@ export default function Stats() {
                     >
                         <div
                             style={{
+                                fontFamily: "var(--font-display)",
                                 fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
                                 fontWeight: 900,
                                 letterSpacing: "-0.04em",
@@ -140,7 +142,7 @@ export default function Stats() {
                         >
                             <CountUp end={downloads} suffix="+" />
                         </div>
-                        <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
                             {t("downloads")}
                         </p>
                     </motion.div>

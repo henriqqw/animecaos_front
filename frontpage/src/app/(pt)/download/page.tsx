@@ -9,14 +9,15 @@ export const metadata: Metadata = buildLocalizedMetadata({
   locale: "pt",
   pathname: "/download",
   title: "Download do AnimeCaos",
-  description: "Baixe o AnimeCaos para Windows em um pacote unico, sem dependencias extras.",
+  description: "Baixe o instalador completo do AnimeCaos para Windows, com o player e as ferramentas incluídos, sem dependências externas.",
 });
 
 async function getLatestRelease(): Promise<LatestRelease> {
   const fallback: LatestRelease = {
-    tag: "v2.0.0",
-    version: "2.0.0",
-    windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v2.0.0/Setup_AnimeCaos_v2.0.0.exe",
+    tag: "v3.0.0",
+    version: "3.0.0",
+    windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-windows-setup.exe",
+    linux_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-x86_64.AppImage",
     changelog: [],
   };
   try {
@@ -29,10 +30,12 @@ async function getLatestRelease(): Promise<LatestRelease> {
     const latest = releases.find((r: { prerelease: boolean }) => !r.prerelease);
     if (!latest) return fallback;
     const exe = latest.assets?.find((a: { name: string }) => a.name.endsWith(".exe"));
+    const appImage = latest.assets?.find((a: { name: string }) => a.name.toLowerCase().endsWith(".appimage"));
     return {
       tag: latest.tag_name,
       version: latest.tag_name.replace(/^v/, ""),
       windows_url: exe?.browser_download_url ?? fallback.windows_url,
+      linux_url: appImage?.browser_download_url ?? fallback.linux_url,
       changelog: [],
     };
   } catch {
@@ -52,7 +55,7 @@ export default async function DownloadPage() {
     softwareVersion: latest.version,
     downloadUrl: latest.windows_url,
     offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
-    description: "Hub de anime desktop open source. Player limpo, download offline, integracao AniList.",
+    description: "App desktop open source para animes, com trackers AniList e MyAnimeList, Discord Rich Presence e instalador completo para Windows.",
     publisher: { "@type": "Organization", name: "caosdev", url: "https://caosdev.vercel.app" },
   };
 

@@ -100,17 +100,7 @@ export default function Navbar({ locale }: NavbarProps) {
                         }}
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/icon.png" alt="AnimeCaos" width={32} height={32} style={{ borderRadius: 6 }} />
-                        <span
-                            style={{
-                                fontWeight: 800,
-                                fontSize: "1.05rem",
-                                color: "var(--text)",
-                                letterSpacing: "-0.03em",
-                            }}
-                        >
-                            AnimeCaos
-                        </span>
+                        <img src="/wordmark.png" alt="AnimeCaos" className="brand-wordmark" width={1040} height={544} />
                     </Link>
 
                     {/* Desktop nav */}
@@ -144,7 +134,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                     style={{
                                         padding: "0.4rem 1rem",
                                         borderRadius: "100px",
-                                        fontSize: "0.875rem",
+                                        fontSize: "1.05rem",
                                         fontWeight: isActive(link.href) ? 600 : 500,
                                         color: isActive(link.href) ? "var(--text)" : "var(--text-muted)",
                                         textDecoration: "none",
@@ -169,7 +159,7 @@ export default function Navbar({ locale }: NavbarProps) {
                             style={{
                                 padding: "0.35rem 0.75rem",
                                 borderRadius: "100px",
-                                fontSize: "0.8rem",
+                                fontSize: "0.95rem",
                                 fontWeight: 600,
                                 color: "var(--text-muted)",
                                 textDecoration: "none",
@@ -189,7 +179,7 @@ export default function Navbar({ locale }: NavbarProps) {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn btn-ghost"
-                            style={{ padding: "0.4rem 0.9rem", fontSize: "0.85rem" }}
+                            style={{ padding: "0.45rem 0.9rem", fontSize: "1rem" }}
                         >
                             <Github size={15} />
                             GitHub
@@ -200,7 +190,7 @@ export default function Navbar({ locale }: NavbarProps) {
                             id="nav-download-btn"
                             data-umami-event="navbar_download_page"
                             className="btn btn-primary"
-                            style={{ padding: "0.4rem 0.9rem", fontSize: "0.85rem" }}
+                            style={{ padding: "0.45rem 0.9rem", fontSize: "1rem" }}
                         >
                             <Download size={15} />
                             Download
@@ -274,10 +264,7 @@ export default function Navbar({ locale }: NavbarProps) {
                             >
                                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src="/icon.png" alt="AnimeCaos" width={28} height={28} style={{ borderRadius: 6 }} />
-                                    <span style={{ fontWeight: 800, fontSize: "1rem", letterSpacing: "-0.02em" }}>
-                                        AnimeCaos
-                                    </span>
+                                    <img src="/wordmark.png" alt="AnimeCaos" className="brand-wordmark brand-wordmark--mobile" width={1040} height={544} />
                                 </div>
                                 <button
                                     onClick={() => setMobileOpen(false)}
@@ -317,7 +304,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                             color: isActive(link.href) ? "var(--text)" : "var(--text-muted)",
                                             background: isActive(link.href) ? "rgba(255,255,255,0.08)" : "transparent",
                                             textDecoration: "none",
-                                            fontSize: "1rem",
+                                            fontSize: "1.1rem",
                                             transition: "all 0.2s ease",
                                         }}
                                     >
@@ -336,7 +323,7 @@ export default function Navbar({ locale }: NavbarProps) {
                                         padding: "0.7rem",
                                         borderRadius: 10,
                                         border: "1px solid var(--border)",
-                                        fontSize: "0.875rem",
+                                        fontSize: "1rem",
                                         fontWeight: 600,
                                         color: "var(--text-muted)",
                                         textDecoration: "none",

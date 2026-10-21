@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState, useCallback } from "react";
+import PixelWindow from "@/components/ui/PixelWindow";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
@@ -19,127 +20,85 @@ const fadeUp: import("framer-motion").Variants = {
     }),
 };
 
-function MacOSWindow({
-    title,
-    children,
-    style = {},
-}: {
-    title: string;
-    children: React.ReactNode;
-    style?: React.CSSProperties;
-}) {
-    return (
-        <div
-            style={{
-                width: "100%",
-                borderRadius: 16,
-                overflow: "hidden",
-                background: "rgba(20, 24, 30, 0.85)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                boxShadow:
-                    "0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.08)",
-                backdropFilter: "blur(24px) saturate(160%)",
-                ...style,
-            }}
-        >
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    padding: "0.75rem 1rem",
-                    background: "rgba(255,255,255,0.04)",
-                    borderBottom: "1px solid rgba(255,255,255,0.07)",
-                    position: "relative",
-                }}
-            >
-                <div style={{ display: "flex", gap: "0.4rem" }}>
-                    {["#ff5f56", "#ffbd2e", "#27c93f"].map((c) => (
-                        <div
-                            key={c}
-                            style={{
-                                width: 12,
-                                height: 12,
-                                borderRadius: "50%",
-                                background: c,
-                                boxShadow: `0 0 6px ${c}55`,
-                            }}
-                        />
-                    ))}
-                </div>
-                <span
-                    style={{
-                        position: "absolute",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        fontSize: "0.75rem",
-                        fontWeight: 500,
-                        color: "rgba(240,242,245,0.35)",
-                        letterSpacing: "0.02em",
-                        pointerEvents: "none",
-                        whiteSpace: "nowrap",
-                    }}
-                >
-                    {title}
-                </span>
-            </div>
-
-            {children}
-        </div>
-    );
-}
-
 export default function Screenshots() {
     const t = useTranslations("screenshots");
     const [lightboxIndex, setLightboxIndex] = useState(-1);
 
     const items = [
         {
-            title: "AnimeCaos - Home",
-            src: "/screenshots/home.webp",
-            alt: "AnimeCaos - tela principal do app",
-            width: 1599,
-            height: 862,
-        },
-        {
-            title: "AnimeCaos - Busca",
-            src: "/screenshots/busca.webp",
-            alt: "AnimeCaos - resultados da busca",
-            width: 1599,
-            height: 861,
-        },
-        {
-            title: "AnimeCaos - Detalhes",
-            src: "/screenshots/detalhes.webp",
-            alt: "AnimeCaos - pagina de detalhes e episodios",
-            width: 1599,
-            height: 860,
-        },
-        {
-            title: "AnimeCaos - Player",
-            src: "/screenshots/player.webp",
-            alt: "AnimeCaos - player integrado",
-            width: 1599,
-            height: 865,
-        },
-        {
-            title: "AnimeCaos - Minha Lista",
-            src: "/screenshots/lista.webp",
-            alt: "AnimeCaos - watchlist de animes",
-            width: 1599,
-            height: 859,
-        },
-        {
-            title: "AnimeCaos - Downloads",
-            src: "/screenshots/downloads.webp",
-            alt: "AnimeCaos - downloads offline",
+            title: "AnimeCaos - Início",
+            src: "/screenshots/Home.png",
+            alt: "AnimeCaos - tela inicial com destaques e animes em andamento",
             width: 1599,
             height: 858,
         },
         {
-            title: "AnimeCaos - Conta",
-            src: "/screenshots/conta.webp",
-            alt: "AnimeCaos - integracao com AniList e Discord",
+            title: "AnimeCaos - Resultados da busca",
+            src: "/screenshots/search_results.png",
+            alt: "AnimeCaos - resultados encontrados para uma busca de anime",
+            width: 1599,
+            height: 856,
+        },
+        {
+            title: "AnimeCaos - Busca em andamento",
+            src: "/screenshots/search_skeleton.png",
+            alt: "AnimeCaos - busca de animes carregando com esqueletos de conteúdo",
+            width: 1599,
+            height: 860,
+        },
+        {
+            title: "AnimeCaos - Nenhum resultado",
+            src: "/screenshots/no_results.png",
+            alt: "AnimeCaos - estado de busca sem resultados",
+            width: 1599,
+            height: 856,
+        },
+        {
+            title: "AnimeCaos - Página do anime",
+            src: "/screenshots/anime_page.png",
+            alt: "AnimeCaos - detalhes do anime Hunter x Hunter e lista de episódios",
+            width: 1599,
+            height: 864,
+        },
+        {
+            title: "AnimeCaos - Histórico",
+            src: "/screenshots/historico.png",
+            alt: "AnimeCaos - histórico de animes assistidos recentemente",
+            width: 1599,
+            height: 865,
+        },
+        {
+            title: "AnimeCaos - Minha lista",
+            src: "/screenshots/my_list.png",
+            alt: "AnimeCaos - lista pessoal de animes",
+            width: 1599,
+            height: 862,
+        },
+        {
+            title: "AnimeCaos - Downloads",
+            src: "/screenshots/downloads.png",
+            alt: "AnimeCaos - downloads offline",
+            width: 1599,
+            height: 860,
+        },
+        {
+            title: "AnimeCaos - Mangás",
+            src: "/screenshots/mangas.png",
+            alt: "AnimeCaos - descoberta e categorias de mangás",
+            width: 1599,
+            height: 862,
+        },
+        {
+            title: "AnimeCaos - Biblioteca de mangás",
+            src: "/screenshots/mangas_01.png",
+            alt: "AnimeCaos - biblioteca de mangás com leituras em andamento",
+            width: 1599,
+            height: 868,
+        },
+        {
+            title: "AnimeCaos - Tela de abertura",
+            src: "/screenshots/splash.png",
+            alt: "AnimeCaos - tela de abertura do aplicativo",
             width: 1599,
             height: 858,
         },
@@ -217,10 +176,10 @@ export default function Screenshots() {
                                                 display: "block",
                                                 width: "100%",
                                                 cursor: "zoom-in",
-                                                borderRadius: 16,
+                                                borderRadius: 0,
                                             }}
                                         >
-                                            <MacOSWindow title={item.title}>
+                                            <PixelWindow title={item.title}>
                                                 <div style={{ position: "relative", width: "100%", aspectRatio: "1599/860", overflow: "hidden" }}>
                                                     <Image
                                                         src={item.src}
@@ -232,7 +191,7 @@ export default function Screenshots() {
                                                         className="screenshot-img"
                                                     />
                                                 </div>
-                                            </MacOSWindow>
+                                            </PixelWindow>
                                         </button>
                                     </article>
                                 );

@@ -77,6 +77,7 @@ const ParticleCard = ({
     style,
     particleCount = DEFAULT_PARTICLE_COUNT,
     glowColor = DEFAULT_GLOW_COLOR,
+    enableParticles = true,
     enableTilt = false,
     clickEffect = true,
     enableMagnetism = true,
@@ -87,6 +88,7 @@ const ParticleCard = ({
     style?: CSSProperties;
     particleCount?: number;
     glowColor?: string;
+    enableParticles?: boolean;
     enableTilt?: boolean;
     clickEffect?: boolean;
     enableMagnetism?: boolean;
@@ -128,7 +130,7 @@ const ParticleCard = ({
     }, []);
 
     const animateParticles = useCallback(() => {
-        if (!cardRef.current || !isHoveredRef.current) return;
+        if (!enableParticles || !cardRef.current || !isHoveredRef.current) return;
         if (!particlesInitialized.current) initializeParticles();
 
         memoizedParticles.current.forEach((particle, index) => {
@@ -166,7 +168,7 @@ const ParticleCard = ({
 
             timeoutsRef.current.push(timeoutId);
         });
-    }, [initializeParticles]);
+    }, [enableParticles, initializeParticles]);
 
     useEffect(() => {
         const element = cardRef.current;
@@ -422,7 +424,8 @@ export default function MagicBento({
                             key={`${item.title}-${index}`}
                             className={baseClassName}
                             style={cardStyle}
-                            disableAnimations={shouldDisableAnimations || !enableStars}
+                            disableAnimations={shouldDisableAnimations}
+                            enableParticles={enableStars}
                             particleCount={particleCount}
                             glowColor={glowColor}
                             enableTilt={enableTilt}

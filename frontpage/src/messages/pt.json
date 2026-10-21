@@ -11,14 +11,14 @@
     "headline1": "AnimeCaos",
     "headline2": "Streaming de Anime",
     "headline3": "",
-    "sub": "O AnimeCaos busca, extrai e entrega os links direto da fonte. Tudo em um player limpo, rápido e com suporte a download. Também possui integração com AniList!",
+    "sub": "O AnimeCaos reúne busca, reprodução e download de animes em um só app. Acompanhe suas listas no AniList e MyAnimeList e compartilhe o que está assistindo pelo Discord.",
     "cta_download": "Baixar AnimeCaos",
     "cta_github": "Ver no GitHub",
     "cta_version": "Última versão"
   },
   "features": {
     "title": "Tudo que você precisa. Nada que você não precisa.",
-    "sub": "Construído para quem realmente vive o anime.",
+    "sub": "Trackers AniList e MyAnimeList, presença no Discord, player limpo e downloads offline.",
     "items": [
       {
         "title": "Hub Inteligente",
@@ -29,8 +29,8 @@
         "desc": "Reprodução via mpv — leve, sem anúncio, sem popup, sem lentidão."
       },
       {
-        "title": "AniList Tracker",
-        "desc": "Sincronize seu progresso, marque episódios assistidos e atualize sua lista diretamente pelo app."
+        "title": "AniList + MyAnimeList",
+        "desc": "Acompanhe seu progresso, marque episódios assistidos e mantenha suas listas atualizadas pelo app."
       },
       {
         "title": "Auto-Play",
@@ -42,7 +42,7 @@
       },
       {
         "title": "Standalone",
-        "desc": "Um .exe que já traz tudo embutido. Instala, abre, assiste."
+        "desc": "O instalador do Windows já inclui player e componentes. Instale e use sem dependências externas."
       }
     ]
   },
@@ -59,38 +59,58 @@
   },
   "download": {
     "title": "Pronto para começar?",
-    "sub": "Standalone. Instala, abre e funciona.",
+    "sub": "Instalador completo para Windows, com os componentes incluídos e sem dependências externas.",
     "btn": "Baixar para Windows",
     "version": "Versão",
-    "note": "Requer Mozilla Firefox instalado",
+    "note": "Não precisa instalar Python, mpv ou yt-dlp. O setup para Windows já inclui todos os componentes necessários.",
     "includes_title": "O que vem no pacote",
     "includes": [
       "Player mpv integrado",
       "yt-dlp para downloads offline",
-      "Integração com AniList",
+      "Trackers AniList e MyAnimeList",
+      "Discord Rich Presence",
       "Busca em 3+ fontes brasileiras"
     ],
-    "linux_title": "AnimeCaos Flatpak",
-    "linux_sub": "Ubuntu, Fedora, Arch e qualquer distro com Flatpak.",
-    "linux_build_label": "Build",
+    "linux_title": "AnimeCaos AppImage",
+    "linux_sub": "Baixe e execute em distribuições Linux x86_64.",
+    "linux_btn": "Baixar para Linux",
     "linux_run_label": "Executar",
-    "linux_note": "Requer Flatpak e dependências de build.",
+    "linux_note": "Compatível com Linux x86_64. Dê permissão de execução ao AppImage antes de abrir.",
     "mac_title": "AnimeCaos para macOS",
     "mac_sub": "Instale via Python. Compatível com macOS 12+.",
     "mac_install_label": "Instalar",
     "mac_run_label": "Executar",
-    "mac_note": "Requer Python 3.10+ e Mozilla Firefox.",
+    "mac_note": "Requer Python 3.10+ para instalar a partir do código-fonte.",
     "cta_sub": "Disponível para Windows, macOS e Linux.",
     "cta_btn": "Ver Downloads"
   },
   "about": {
-    "title": "Por que o AnimeCaos existe?",
-    "p1": "Quem assiste anime no Brasil sabe como é: quatro abas abertas, dez anúncios fechados, player que não carrega, episódio que some no meio da temporada.",
-    "p2": "O AnimeCaos surgiu disso. Automatiza a navegação, extrai os links diretamente dos players e junta tudo numa interface que não atrapalha. Sem servidor, sem conta, sem mensalidade.",
-    "p3": "É open source, feito em Python, e acaba sendo um bom campo de estudo pra quem quer entender automação web, scraping e busca aproximada na prática. Pull requests são bem-vindos.",
-    "tech_title": "Stack Técnica",
+    "eyebrow": "App desktop · release 3.0.0",
+    "title": "Uma nova fase, em Go.",
+    "p1": "O AnimeCaos 3.0.0 é a primeira versão pública depois da refatoração: um app desktop para descobrir e assistir animes, organizar sua biblioteca e ler mangás.",
+    "p2": "O aplicativo foi reconstruído em Go com Wails 2. A interface usa React e TypeScript; os recursos centrais agora rodam no backend Go. O código Python anterior permanece em Legacy/ e não faz parte do app distribuído.",
+    "release_btn": "Baixar v3.0.0",
+    "release_card_label": "Build atual",
+    "runtime_label": "Runtime desktop",
+    "interface_label": "Interface",
+    "legacy_note": "O app distribuído não depende do projeto Python legado.",
+    "tech_title": "Stack do aplicativo",
+    "stack_go": "Backend e recursos centrais",
+    "stack_wails": "Aplicativo desktop nativo",
+    "stack_frontend": "Interface do aplicativo",
+    "stack_media": "Reprodução e processamento de mídia",
+    "features_title": "O que o AnimeCaos reúne",
+    "anime_title": "Anime",
+    "anime_desc": "Busca em várias fontes, temporadas, episódios, reprodução com MPV, Minha Lista, histórico e downloads.",
+    "manga_title": "Mangás",
+    "manga_desc": "Catálogo MangaDex, leitor contínuo ou por páginas e capítulos para baixar em CBZ.",
+    "integrations_title": "Contas e integrações",
+    "integrations_desc": "Sincronização com AniList e presença opcional no Discord. O primeiro login do MyAnimeList ainda está em validação na v3.0.0.",
+    "distribution_title": "Distribuição",
+    "distribution_desc": "Pacotes para Windows x64 e Linux x86_64 com runtimes de mídia e navegador incluídos.",
     "open_title": "Código aberto",
-    "open_desc": "O repositório é público no GitHub. Qualquer um pode ler o código, abrir uma issue, mandar um PR ou fazer um fork e levar o projeto pra onde quiser."
+    "open_desc": "O repositório é público no GitHub. O app atual roda em Go; a versão anterior em Python foi preservada em Legacy/. Issues, contribuições e forks são bem-vindos.",
+    "repo_link_label": "Abrir repositório AnimeCaos no GitHub"
   },
   "howto": {
     "title": "Como Usar",
@@ -99,7 +119,7 @@
       {
         "num": "01",
         "title": "Baixe o AnimeCaos",
-        "desc": "Baixe o .exe e abra o executável. ⚠️ É obrigatório ter o Firefox instalado no PC."
+        "desc": "No Windows, baixe e execute o instalador completo. Ele já inclui os componentes necessários, sem exigir ferramentas externas."
       },
       {
         "num": "02",
@@ -109,7 +129,7 @@
       {
         "num": "03",
         "title": "Selecione o Episódio",
-        "desc": "Escolha a fonte e o episódio. O painel lateral mostra capa e sinopse via AniList automaticamente."
+        "desc": "Escolha a fonte e o episódio. O app mostra capa e sinopse e integra seu progresso com AniList e MyAnimeList."
       },
       {
         "num": "04",
@@ -128,7 +148,7 @@
     "label": "Preview",
     "title": "Veja o app em ação",
     "caption_app": "Tela principal — busca, biblioteca e gerenciamento de animes",
-    "caption_search": "Busca com capas dinâmicas e metadados do AniList",
+    "caption_search": "Busca com capas dinâmicas e metadados do AniList e MyAnimeList",
     "caption_detail": "Detalhes do anime com sinopse, capa e lista de episódios",
     "caption_player": "Player integrado com suporte a auto-play e download"
   },

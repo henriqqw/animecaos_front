@@ -14,16 +14,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         pathname: "/download",
         title: isPt ? "Download do AnimeCaos" : "AnimeCaos Download",
         description: isPt
-            ? "Baixe o AnimeCaos para Windows em um pacote unico, sem dependencias extras."
-            : "Download AnimeCaos for Windows in one package with no extra dependencies.",
+            ? "Baixe o instalador completo do AnimeCaos para Windows, com o player e as ferramentas incluídos, sem dependências externas."
+            : "Download the complete AnimeCaos Windows installer with the player and tools included, with no external dependencies.",
     });
 }
 
 async function getLatestRelease(): Promise<LatestRelease> {
     const fallback: LatestRelease = {
-        tag: "v2.0.0",
-        version: "2.0.0",
-        windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v2.0.0/Setup_AnimeCaos_v2.0.0.exe",
+        tag: "v3.0.0",
+        version: "3.0.0",
+        windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-windows-setup.exe",
+        linux_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-x86_64.AppImage",
         changelog: [],
     };
     try {
@@ -36,10 +37,12 @@ async function getLatestRelease(): Promise<LatestRelease> {
         const latest = releases.find((r: { prerelease: boolean }) => !r.prerelease);
         if (!latest) return fallback;
         const exe = latest.assets?.find((a: { name: string }) => a.name.endsWith(".exe"));
+        const appImage = latest.assets?.find((a: { name: string }) => a.name.toLowerCase().endsWith(".appimage"));
         return {
             tag: latest.tag_name,
             version: latest.tag_name.replace(/^v/, ""),
             windows_url: exe?.browser_download_url ?? fallback.windows_url,
+            linux_url: appImage?.browser_download_url ?? fallback.linux_url,
             changelog: [],
         };
     } catch {
@@ -49,6 +52,7 @@ async function getLatestRelease(): Promise<LatestRelease> {
 
 export default async function DownloadPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
+    const isPt = locale === "pt";
     const latest = await getLatestRelease();
 
     const softwareJsonLd = {
@@ -60,7 +64,9 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
         softwareVersion: latest.version,
         downloadUrl: latest.windows_url,
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
-        description: "Hub de anime desktop open source. Player limpo, download offline, integracao AniList.",
+        description: isPt
+            ? "App desktop open source para animes, com trackers AniList e MyAnimeList, Discord Rich Presence e instalador completo para Windows."
+            : "Open-source desktop anime app with AniList and MyAnimeList trackers, Discord Rich Presence and a complete Windows installer.",
         publisher: { "@type": "Organization", name: "caosdev", url: "https://caosdev.vercel.app" },
     };
 
