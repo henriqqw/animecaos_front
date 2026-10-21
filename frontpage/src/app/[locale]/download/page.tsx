@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import PageWrapper from "@/components/layout/PageWrapper";
 import DownloadContent from "@/components/sections/DownloadContent";
-import { buildLocalizedMetadata, toAppLocale } from "@/lib/seo";
+import { buildLocalizedMetadata, SITE_URL, toAppLocale } from "@/lib/seo";
 import type { LatestRelease } from "@/app/api/github-downloads/route";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -23,7 +23,7 @@ async function getLatestRelease(): Promise<LatestRelease> {
     const fallback: LatestRelease = {
         tag: "v3.0.0",
         version: "3.0.0",
-        windows_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-windows-setup.exe",
+        windows_url: "/api/download/windows",
         linux_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-x86_64.AppImage",
         changelog: [],
     };
@@ -36,12 +36,11 @@ async function getLatestRelease(): Promise<LatestRelease> {
         const releases = await res.json();
         const latest = releases.find((r: { prerelease: boolean }) => !r.prerelease);
         if (!latest) return fallback;
-        const exe = latest.assets?.find((a: { name: string }) => a.name.endsWith(".exe"));
         const appImage = latest.assets?.find((a: { name: string }) => a.name.toLowerCase().endsWith(".appimage"));
         return {
             tag: latest.tag_name,
             version: latest.tag_name.replace(/^v/, ""),
-            windows_url: exe?.browser_download_url ?? fallback.windows_url,
+            windows_url: "/api/download/windows",
             linux_url: appImage?.browser_download_url ?? fallback.linux_url,
             changelog: [],
         };
@@ -62,7 +61,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
         operatingSystem: "Windows",
         applicationCategory: "MultimediaApplication",
         softwareVersion: latest.version,
-        downloadUrl: latest.windows_url,
+        downloadUrl: `${SITE_URL}/api/download/windows`,
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
         description: isPt
             ? "App desktop open source para animes, com trackers AniList e MyAnimeList, Discord Rich Presence e instalador completo para Windows."

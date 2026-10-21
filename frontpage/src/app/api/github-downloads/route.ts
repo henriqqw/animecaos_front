@@ -89,12 +89,11 @@ export async function GET() {
         data.changelogs.push({ tag: rel.tag_name, date: rel.published_at, items });
       }
       if (!data.latest) {
-        const exe = rel.assets.find((a) => a.name.endsWith(".exe"));
         const appImage = rel.assets.find((a) => a.name.toLowerCase().endsWith(".appimage"));
         data.latest = {
           tag: rel.tag_name,
           version: rel.tag_name.replace(/^v/, ""),
-          windows_url: exe?.browser_download_url ?? null,
+          windows_url: "/api/download/windows",
           linux_url: appImage?.browser_download_url ?? null,
           changelog: items,
         };
