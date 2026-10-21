@@ -4,13 +4,13 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import type { LatestRelease, DownloadsResponse, ReleaseChangelog } from "@/app/api/github-downloads/route";
 
 const FALLBACK_URL = "/api/download/windows";
-const FALLBACK_LINUX_URL =
-  "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-x86_64.AppImage";
+const FALLBACK_LINUX_URL = "/api/download/linux";
 
 const FALLBACK_RELEASE: LatestRelease = {
   tag: "v3.0.0",
   version: "3.0.0",
   windows_url: FALLBACK_URL,
+  linux_filename: "AnimeCaos-3.0.1-x86_64.AppImage",
   linux_url: FALLBACK_LINUX_URL,
   changelog: [],
 };

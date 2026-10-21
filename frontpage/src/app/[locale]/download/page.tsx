@@ -24,7 +24,8 @@ async function getLatestRelease(): Promise<LatestRelease> {
         tag: "v3.0.0",
         version: "3.0.0",
         windows_url: "/api/download/windows",
-        linux_url: "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-x86_64.AppImage",
+        linux_filename: "AnimeCaos-3.0.1-x86_64.AppImage",
+        linux_url: "/api/download/linux",
         changelog: [],
     };
     try {
@@ -41,7 +42,8 @@ async function getLatestRelease(): Promise<LatestRelease> {
             tag: latest.tag_name,
             version: latest.tag_name.replace(/^v/, ""),
             windows_url: "/api/download/windows",
-            linux_url: appImage?.browser_download_url ?? fallback.linux_url,
+            linux_filename: appImage?.name ?? fallback.linux_filename,
+            linux_url: "/api/download/linux",
             changelog: [],
         };
     } catch {

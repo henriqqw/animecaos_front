@@ -20,6 +20,7 @@ export interface LatestRelease {
   tag: string;
   version: string;
   windows_url: string | null;
+  linux_filename: string | null;
   linux_url: string | null;
   changelog: string[];
 }
@@ -94,7 +95,8 @@ export async function GET() {
           tag: rel.tag_name,
           version: rel.tag_name.replace(/^v/, ""),
           windows_url: "/api/download/windows",
-          linux_url: appImage?.browser_download_url ?? null,
+          linux_filename: appImage?.name ?? null,
+          linux_url: "/api/download/linux",
           changelog: items,
         };
       }
@@ -102,6 +104,6 @@ export async function GET() {
   }
 
   return NextResponse.json(data, {
-    headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=300" },
+    headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=300" },
   });
 }

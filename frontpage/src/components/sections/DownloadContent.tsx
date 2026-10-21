@@ -8,10 +8,8 @@ import { useRelease } from "@/lib/release/context";
 
 const GITHUB_REPO = "https://github.com/henriqqw/AnimeCaos";
 
-const LINUX_DOWNLOAD_URL =
-    "https://github.com/henriqqw/AnimeCaos/releases/download/v3.0.0/AnimeCaos-3.0.0-x86_64.AppImage";
-const LINUX_RUN = `chmod +x AnimeCaos-3.0.0-x86_64.AppImage
-./AnimeCaos-3.0.0-x86_64.AppImage`;
+const LINUX_DOWNLOAD_URL = "/api/download/linux";
+const LINUX_FALLBACK_FILENAME = "AnimeCaos-3.0.1-x86_64.AppImage";
 
 const MAC_INSTALL = `git clone https://github.com/henriqqw/animecaos.git
 cd animecaos
@@ -114,6 +112,10 @@ export default function DownloadContent() {
     const t = useTranslations("download");
     const release = useRelease();
     const includes = t.raw("includes") as string[];
+    const linuxFilename = release.linux_filename && /^[A-Za-z0-9][A-Za-z0-9._-]*\.AppImage$/i.test(release.linux_filename)
+        ? release.linux_filename
+        : LINUX_FALLBACK_FILENAME;
+    const linuxRun = `chmod +x ${linuxFilename}\n./${linuxFilename}`;
 
     return (
         <main className="download-page">
@@ -238,9 +240,9 @@ export default function DownloadContent() {
 
                         {/* Run instructions */}
                         <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                            <CodeSection label={t("linux_run_label")} code={LINUX_RUN}>
-                                <div><span className="cmd">chmod</span>{" +x AnimeCaos-3.0.0-x86_64.AppImage"}</div>
-                                <div><span className="cmd">{"./AnimeCaos-3.0.0-x86_64.AppImage"}</span></div>
+                            <CodeSection label={t("linux_run_label")} code={linuxRun}>
+                                <div><span className="cmd">chmod</span>{` +x ${linuxFilename}`}</div>
+                                <div><span className="cmd">{`./${linuxFilename}`}</span></div>
                             </CodeSection>
                         </div>
 
