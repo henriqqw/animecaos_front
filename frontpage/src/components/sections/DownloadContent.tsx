@@ -35,7 +35,7 @@ const PILL_STYLE: React.CSSProperties = {
     color: "var(--text-subtle)",
     background: "rgba(255,255,255,0.05)",
     border: "1px solid var(--border)",
-    borderRadius: "999px",
+    borderRadius: 0,
     padding: "0.22rem 0.7rem",
     whiteSpace: "nowrap",
 };
@@ -91,10 +91,10 @@ function CodeSection({ label, code, children }: { label: string; code: string; c
 
 function ReqBox({ text }: { text: string }) {
     return (
-        <div style={{
+        <div className="download-requirement" style={{
             background: "rgba(251, 191, 36, 0.06)",
             border: "1px solid rgba(251, 191, 36, 0.22)",
-            borderRadius: "var(--radius)",
+            borderRadius: 0,
             padding: "0.75rem 1rem",
             display: "flex",
             alignItems: "flex-start",
@@ -116,31 +116,32 @@ export default function DownloadContent() {
     const includes = t.raw("includes") as string[];
 
     return (
-        <div style={{ position: "relative", zIndex: 1, paddingTop: "8rem", paddingBottom: "6rem" }}>
+        <main className="download-page">
             <div className="container">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    style={{ marginBottom: "3.5rem" }}
+                    className="download-page-header"
                 >
-                    <div className="badge" style={{ marginBottom: "1.25rem" }}>
+                    <div className="about-kicker">
+                        <span />
                         <Download size={11} />
                         {t("version")} {release.tag}
                     </div>
-                    <h1 className="heading-lg">{t("title")}</h1>
+                    <h1 className="heading-lg download-page-title">{t("title")}</h1>
                 </motion.div>
 
                 {/* Platform cards — align-items: start so cards don't stretch to equal height */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem", alignItems: "start" }}>
+                <div className="download-platform-grid">
 
                     {/* === WINDOWS === */}
                     <motion.div
                         initial={{ opacity: 0, y: 32 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="liquid-glass"
+                        className="download-platform-card"
                         style={{ padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}
                     >
                         {/* Platform label */}
@@ -211,7 +212,7 @@ export default function DownloadContent() {
                         initial={{ opacity: 0, y: 32 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="liquid-glass"
+                        className="download-platform-card"
                         style={{ padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}
                     >
                         {/* Platform label */}
@@ -275,7 +276,7 @@ export default function DownloadContent() {
                         initial={{ opacity: 0, y: 32 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        className="liquid-glass"
+                        className="download-platform-card"
                         style={{ padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}
                     >
                         {/* Platform label */}
@@ -331,6 +332,6 @@ export default function DownloadContent() {
 
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

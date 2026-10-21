@@ -14,6 +14,7 @@ import {
     ShieldCheck,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import PixelWindow from "@/components/ui/PixelWindow";
 
 const STACK = [
     { icon: Code2, name: "Go", detailKey: "stack_go" },
@@ -57,20 +58,20 @@ export default function AboutContent() {
                         </div>
                     </div>
 
-                    <div className="about-build-card" aria-label={t("release_card_label")}>
-                        <div className="about-build-titlebar">
-                            <span className="about-build-dot" />
-                            <span>{t("release_card_label")}</span>
-                            <span className="about-build-version">v3.0.0</span>
-                        </div>
+                    <div className="about-build-window" aria-label={t("release_card_label")}>
+                        <PixelWindow title={`AnimeCaos — ${t("release_card_label")}`}>
                         <div className="about-build-body">
-                            <p className="about-build-caption">{t("runtime_label")}</p>
+                            <div className="about-build-meta">
+                                <p className="about-build-caption">{t("runtime_label")}</p>
+                                <span className="about-build-version">v3.0.0</span>
+                            </div>
                             <strong>Go <span>+</span> Wails 2</strong>
                             <div className="about-build-divider" />
                             <p className="about-build-caption">{t("interface_label")}</p>
                             <strong>React <span>+</span> TypeScript</strong>
                             <div className="about-build-status"><ShieldCheck size={15} /> {t("legacy_note")}</div>
                         </div>
+                        </PixelWindow>
                     </div>
                 </motion.section>
 
