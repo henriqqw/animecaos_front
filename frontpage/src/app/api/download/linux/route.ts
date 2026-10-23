@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const LATEST_RELEASE_URL = "https://github.com/henriqqw/AnimeCaos/releases/latest";
 
@@ -22,7 +22,7 @@ export async function GET() {
           Accept: "application/vnd.github+json",
           "X-GitHub-Api-Version": "2022-11-28",
         },
-        next: { revalidate: 300 },
+        cache: "no-store",
       },
     );
 
@@ -41,7 +41,7 @@ export async function GET() {
         ) {
           return NextResponse.redirect(assetUrl, {
             status: 302,
-            headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=300" },
+            headers: { "Cache-Control": "no-store" },
           });
         }
       }
@@ -52,6 +52,6 @@ export async function GET() {
 
   return NextResponse.redirect(LATEST_RELEASE_URL, {
     status: 302,
-    headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" },
+    headers: { "Cache-Control": "no-store" },
   });
 }
